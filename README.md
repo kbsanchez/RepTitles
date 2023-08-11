@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+<p align="center">
+  <img src="./public/RepTitlesLogo.png" alt="RepTitles Logo" width="200"/>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RepTitles - Reptile Management Web Application
 
-## Available Scripts
+### This project is currently under development.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Overview](#overview)
+- [Features](#features)
+- [Contact](#contact)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Overview
+RepTitles is a comprehensive web application built using ReactJS, Bootstrap, AWS Amplify Storage, and GraphQL. It's designed to streamline reptile breeders' management processes by providing efficient tools for uploading, managing, and generating reptile-related documents. Whether you're a breeder looking to enhance your workflow or a reptile purchaser seeking organized document retention, RepTitles has you covered.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+RepTitles is designed to address a range of reptile breeder/purchaser pain points, including:
 
-### `npm test`
+- Efficient reptile management for breeders.
+- Quick document access and retention for breeders/purchasers.
+- Mobile-friendly interface for on-the-go access.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+- **Upload Reptiles:** Breeders can easily upload their reptiles along with detailed information, facilitating quick generation of birth and sale documents for customers.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Multi-Upload by ClutchID:** Breeders can save time by multi-uploading reptiles under the same ClutchID, streamlining the process of adding multiple reptiles with similar information.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Dashboard with Filters:** A user-friendly dashboard allows breeders to view their reptiles and apply filters such as species, date, parents, or ClutchID for effective reptile management.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Update and Delete:** Breeders can effortlessly update and delete reptile information, ensuring accurate tracking of changes.
 
-### `npm run eject`
+- **Document Generation:** Seamlessly generate reptile birth and sale documents to provide comprehensive information to customers and ensure quality transactions.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Document Management:** Easily view and delete all generated documents for efficient management.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Transaction History:** Breeders can keep track of all transactions made through their accounts, ensuring accurate financial records.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **PDF Generation:** With just a click, users can generate PDFs of their documents for quick downloads, printing, or sharing.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Custom QR Codes:** Each document is assigned a unique QR code, enabling users to print and attach codes for easy document access.
 
-## Learn More
+- **Mobile-Friendly:** RepTitles is fully responsive, ensuring smooth accessibility and document management on mobile devices.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Profile Contact Info:** Users can add and store their general contact information in their profiles, simplifying document creation.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contact
 
-### Code Splitting
+For questions or suggestions, feel free to reach out to Keylin Sanchez at sanchezkeylin@outlook.com.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Experience the convenience of effective reptile management and document generation with RepTitles. Happy breeding! 🦎📜
