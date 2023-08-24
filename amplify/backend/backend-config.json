@@ -18,7 +18,7 @@
     }
   },
   "auth": {
-    "reptitlesf1ed2a8d": {
+    "reptitles8f68a227": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -41,13 +41,6 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
-    }
-  },
-  "storage": {
-    "imagestorage": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
     }
   }
 }
