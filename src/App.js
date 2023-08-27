@@ -1,39 +1,51 @@
-import React from "react";
-import "./App.css";
-import "@aws-amplify/ui-react/styles.css";
-import {
-  Button,
-  Heading,
-  View,
-  Tabs,
-  TabItem,
-  withAuthenticator,
-} from "@aws-amplify/ui-react";
+import { Authenticator } from '@aws-amplify/ui-react';
 
-const App = ({ signOut }) => {
+import { Protected } from './components/Protected';
+import { RequireAuth } from './RequireAuth';
+import { Login } from './components/Login';
+import { ProtectedSecond } from './components/ProtectSecond';
+import { Home } from './components/Home';
+import { Layout } from './components/Layout';
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import './App.css';
+
+function MyRoutes() {
   return (
-    <View className="App">
-      <Heading level={1}>RepTitles: Reptile Document Generator</Heading>
-        <Tabs
-          spacing="relative"
-          justifyContent="flex-end">
-          <TabItem title="Reptiles">
-            Reptiles content
-          </TabItem>
-          <TabItem title="Documents">
-            Documents content
-          </TabItem>
-          <TabItem title="Transactions">
-            Transaction history
-          </TabItem>
-          <TabItem title="Profile">
-            Profile content
-          </TabItem>
-        </Tabs>
-      <Button onClick={signOut} style={{marginTop: '10vh'}}>Sign Out</Button>
-    </View>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/protected"
+            element={
+              <RequireAuth>
+                <Protected />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/protected2"
+            element={
+              <RequireAuth>
+                <ProtectedSecond />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
-export default withAuthenticator(App);
+function App() {
+  return (
+    <Authenticator.Provider>
+      <MyRoutes />
+    </Authenticator.Provider>
+  );
+}
+
+export default App;
