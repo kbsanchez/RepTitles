@@ -1,22 +1,52 @@
-# This "input" configures a global authorization rule to enable public access to
-# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type Reptile @model {
+type Transaction @model @auth(rules: [{allow: owner, operations: [create, read, update]}]) {
   id: ID!
-  name: String!
-  documents: [Document] @hasMany
+  documentID: ID! @index(name: "byDocument")
 }
 
-type Document @model {
+type Clutch @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  title: String!
+  Reptiles: [Reptile] @hasMany(indexName: "byClutch", fields: ["id"])
+  hatchDate: AWSDate
+  species: String
+  Sire: Reptile @hasOne
+  Dam: Reptile @hasOne
+  breeder: String
+}
+
+enum DocType {
+  BIRTH
+  SALE
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+type Reptile @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  alias: String!
+  documents: [Document] @hasMany(indexName: "byReptile", fields: ["id"])
+  species: String
+  hatchDate: AWSDate
+  sex: Sex
+  breeder: String
+  image: String
+  isParent: Boolean
+  clutchID: ID! @index(name: "byClutch")
+}
+
+type Document @model @auth(rules: [{allow: owner}]) {
+  id: ID!
   reptile: Reptile @belongsTo
-  transactions: [Transaction] @hasMany
+  reptileID: ID! @index(name: "byReptile")
+  dateCreated: AWSDate
+  docType: DocType
+  breederName: String
+  breederEmail: String
+  soldToName: String
+  soldToEmail: String
+  Transactions: [Transaction] @hasMany(indexName: "byDocument", fields: ["id"])
 }
-
-type Transaction @model {
-  id: ID!
-  document: Document @belongsTo
-  content: String
-}
+ 

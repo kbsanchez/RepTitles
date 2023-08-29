@@ -11,7 +11,6 @@ import {
   Flex,
   Grid,
   SelectField,
-  SwitchField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
@@ -19,7 +18,7 @@ import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Reptile } from "../models";
 import { fetchByPath, processFile, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function ReptileCreateForm(props) {
+export default function ReptileCreateFromClutchForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -32,39 +31,23 @@ export default function ReptileCreateForm(props) {
   } = props;
   const initialValues = {
     alias: "",
-    species: "",
-    hatchDate: "",
     sex: "",
-    breeder: "",
     image: undefined,
-    isParent: false,
   };
   const [alias, setAlias] = React.useState(initialValues.alias);
-  const [species, setSpecies] = React.useState(initialValues.species);
-  const [hatchDate, setHatchDate] = React.useState(initialValues.hatchDate);
   const [sex, setSex] = React.useState(initialValues.sex);
-  const [breeder, setBreeder] = React.useState(initialValues.breeder);
   const [image, setImage] = React.useState(initialValues.image);
-  const [isParent, setIsParent] = React.useState(initialValues.isParent);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setAlias(initialValues.alias);
-    setSpecies(initialValues.species);
-    setHatchDate(initialValues.hatchDate);
     setSex(initialValues.sex);
-    setBreeder(initialValues.breeder);
     setImage(initialValues.image);
-    setIsParent(initialValues.isParent);
     setErrors({});
   };
   const validations = {
-    alias: [],
-    species: [],
-    hatchDate: [],
+    alias: [{ type: "Required" }],
     sex: [],
-    breeder: [],
     image: [],
-    isParent: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -93,12 +76,8 @@ export default function ReptileCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           alias,
-          species,
-          hatchDate,
           sex,
-          breeder,
           image,
-          isParent,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -141,13 +120,12 @@ export default function ReptileCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "ReptileCreateForm")}
+      {...getOverrideProps(overrides, "ReptileCreateFromClutchForm")}
       {...rest}
     >
       <TextField
         label="Alias"
-        descriptiveText=""
-        isRequired={false}
+        isRequired={true}
         isReadOnly={false}
         value={alias}
         onChange={(e) => {
@@ -155,12 +133,8 @@ export default function ReptileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               alias: value,
-              species,
-              hatchDate,
               sex,
-              breeder,
               image,
-              isParent,
             };
             const result = onChange(modelFields);
             value = result?.alias ?? value;
@@ -175,67 +149,6 @@ export default function ReptileCreateForm(props) {
         hasError={errors.alias?.hasError}
         {...getOverrideProps(overrides, "alias")}
       ></TextField>
-      <TextField
-        label="Species"
-        isRequired={false}
-        isReadOnly={false}
-        value={species}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species: value,
-              hatchDate,
-              sex,
-              breeder,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.species ?? value;
-          }
-          if (errors.species?.hasError) {
-            runValidationTasks("species", value);
-          }
-          setSpecies(value);
-        }}
-        onBlur={() => runValidationTasks("species", species)}
-        errorMessage={errors.species?.errorMessage}
-        hasError={errors.species?.hasError}
-        {...getOverrideProps(overrides, "species")}
-      ></TextField>
-      <TextField
-        label="Hatch date"
-        isRequired={false}
-        isReadOnly={false}
-        type="date"
-        value={hatchDate}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate: value,
-              sex,
-              breeder,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.hatchDate ?? value;
-          }
-          if (errors.hatchDate?.hasError) {
-            runValidationTasks("hatchDate", value);
-          }
-          setHatchDate(value);
-        }}
-        onBlur={() => runValidationTasks("hatchDate", hatchDate)}
-        errorMessage={errors.hatchDate?.errorMessage}
-        hasError={errors.hatchDate?.hasError}
-        {...getOverrideProps(overrides, "hatchDate")}
-      ></TextField>
       <SelectField
         label="Sex"
         placeholder="Please select an option"
@@ -246,12 +159,8 @@ export default function ReptileCreateForm(props) {
           if (onChange) {
             const modelFields = {
               alias,
-              species,
-              hatchDate,
               sex: value,
-              breeder,
               image,
-              isParent,
             };
             const result = onChange(modelFields);
             value = result?.sex ?? value;
@@ -282,36 +191,6 @@ export default function ReptileCreateForm(props) {
           {...getOverrideProps(overrides, "sexoption2")}
         ></option>
       </SelectField>
-      <TextField
-        label="Breeder"
-        isRequired={false}
-        isReadOnly={false}
-        value={breeder}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate,
-              sex,
-              breeder: value,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.breeder ?? value;
-          }
-          if (errors.breeder?.hasError) {
-            runValidationTasks("breeder", value);
-          }
-          setBreeder(value);
-        }}
-        onBlur={() => runValidationTasks("breeder", breeder)}
-        errorMessage={errors.breeder?.errorMessage}
-        hasError={errors.breeder?.hasError}
-        {...getOverrideProps(overrides, "breeder")}
-      ></TextField>
       <Field
         errorMessage={errors.image?.errorMessage}
         hasError={errors.image?.hasError}
@@ -326,12 +205,8 @@ export default function ReptileCreateForm(props) {
               if (onChange) {
                 const modelFields = {
                   alias,
-                  species,
-                  hatchDate,
                   sex,
-                  breeder,
                   image: value,
-                  isParent,
                 };
                 const result = onChange(modelFields);
                 value = result?.image ?? value;
@@ -345,12 +220,8 @@ export default function ReptileCreateForm(props) {
               if (onChange) {
                 const modelFields = {
                   alias,
-                  species,
-                  hatchDate,
                   sex,
-                  breeder,
                   image: value,
-                  isParent,
                 };
                 const result = onChange(modelFields);
                 value = result?.image ?? value;
@@ -359,7 +230,7 @@ export default function ReptileCreateForm(props) {
             });
           }}
           processFile={processFile}
-          accessLevel={"protected"}
+          accessLevel={"private"}
           acceptedFileTypes={["image/*"]}
           isResumable={false}
           showThumbnails={true}
@@ -367,36 +238,6 @@ export default function ReptileCreateForm(props) {
           {...getOverrideProps(overrides, "image")}
         ></StorageManager>
       </Field>
-      <SwitchField
-        label="This is a parent reptile"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={isParent}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate,
-              sex,
-              breeder,
-              image,
-              isParent: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.isParent ?? value;
-          }
-          if (errors.isParent?.hasError) {
-            runValidationTasks("isParent", value);
-          }
-          setIsParent(value);
-        }}
-        onBlur={() => runValidationTasks("isParent", isParent)}
-        errorMessage={errors.isParent?.errorMessage}
-        hasError={errors.isParent?.hasError}
-        {...getOverrideProps(overrides, "isParent")}
-      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

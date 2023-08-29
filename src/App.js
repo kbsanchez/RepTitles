@@ -1,10 +1,10 @@
 import { Authenticator } from '@aws-amplify/ui-react';
 
-import { Protected } from './components/Protected';
+import { Reptiles } from './components/Reptiles/Reptiles';
 import { RequireAuth } from './RequireAuth';
 import { Login } from './components/Login';
-import { ProtectedSecond } from './components/ProtectSecond';
-import { Home } from './components/Home';
+import { Documents } from './components/Documents/Documents';
+import { Home } from './components/Home/Home';
 import { Layout } from './components/Layout';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,18 +18,18 @@ function MyRoutes() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route
-            path="/protected"
+            path="/reptiles"
             element={
               <RequireAuth>
-                <Protected />
+                <Reptiles />
               </RequireAuth>
             }
           />
           <Route
-            path="/protected2"
+            path="/documents"
             element={
               <RequireAuth>
-                <ProtectedSecond />
+                <Documents />
               </RequireAuth>
             }
           />

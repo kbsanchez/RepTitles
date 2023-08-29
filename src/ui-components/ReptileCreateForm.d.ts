@@ -5,7 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -13,15 +14,33 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ReptileCreateFormInputValues = {
-    name?: string;
+    alias?: string;
+    species?: string;
+    hatchDate?: string;
+    sex?: string;
+    breeder?: string;
+    image?: string;
+    isParent?: boolean;
 };
 export declare type ReptileCreateFormValidationValues = {
-    name?: ValidationFunction<string>;
+    alias?: ValidationFunction<string>;
+    species?: ValidationFunction<string>;
+    hatchDate?: ValidationFunction<string>;
+    sex?: ValidationFunction<string>;
+    breeder?: ValidationFunction<string>;
+    image?: ValidationFunction<string>;
+    isParent?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReptileCreateFormOverridesProps = {
     ReptileCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    name?: PrimitiveOverrideProps<TextFieldProps>;
+    alias?: PrimitiveOverrideProps<TextFieldProps>;
+    species?: PrimitiveOverrideProps<TextFieldProps>;
+    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    sex?: PrimitiveOverrideProps<SelectFieldProps>;
+    breeder?: PrimitiveOverrideProps<TextFieldProps>;
+    image?: PrimitiveOverrideProps<StorageManagerProps>;
+    isParent?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type ReptileCreateFormProps = React.PropsWithChildren<{
     overrides?: ReptileCreateFormOverridesProps | undefined | null;
