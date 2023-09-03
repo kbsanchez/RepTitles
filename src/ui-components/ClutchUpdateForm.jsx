@@ -24,21 +24,33 @@ export default function ClutchUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    hatchDate: "",
+    typeOfReptile: "",
     species: "",
-    breeder: "",
+    hatchDate: "",
+    breederName: "",
+    breederEmail: "",
   };
-  const [hatchDate, setHatchDate] = React.useState(initialValues.hatchDate);
+  const [typeOfReptile, setTypeOfReptile] = React.useState(
+    initialValues.typeOfReptile
+  );
   const [species, setSpecies] = React.useState(initialValues.species);
-  const [breeder, setBreeder] = React.useState(initialValues.breeder);
+  const [hatchDate, setHatchDate] = React.useState(initialValues.hatchDate);
+  const [breederName, setBreederName] = React.useState(
+    initialValues.breederName
+  );
+  const [breederEmail, setBreederEmail] = React.useState(
+    initialValues.breederEmail
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = clutchRecord
       ? { ...initialValues, ...clutchRecord }
       : initialValues;
-    setHatchDate(cleanValues.hatchDate);
+    setTypeOfReptile(cleanValues.typeOfReptile);
     setSpecies(cleanValues.species);
-    setBreeder(cleanValues.breeder);
+    setHatchDate(cleanValues.hatchDate);
+    setBreederName(cleanValues.breederName);
+    setBreederEmail(cleanValues.breederEmail);
     setErrors({});
   };
   const [clutchRecord, setClutchRecord] = React.useState(clutchModelProp);
@@ -53,9 +65,11 @@ export default function ClutchUpdateForm(props) {
   }, [idProp, clutchModelProp]);
   React.useEffect(resetStateValues, [clutchRecord]);
   const validations = {
-    hatchDate: [],
+    typeOfReptile: [],
     species: [],
-    breeder: [],
+    hatchDate: [],
+    breederName: [],
+    breederEmail: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,9 +97,11 @@ export default function ClutchUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          hatchDate,
+          typeOfReptile,
           species,
-          breeder,
+          hatchDate,
+          breederName,
+          breederEmail,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -133,31 +149,32 @@ export default function ClutchUpdateForm(props) {
       {...rest}
     >
       <TextField
-        label="Hatch date"
+        label="Type of reptile"
         isRequired={false}
         isReadOnly={false}
-        type="date"
-        value={hatchDate}
+        value={typeOfReptile}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              hatchDate: value,
+              typeOfReptile: value,
               species,
-              breeder,
+              hatchDate,
+              breederName,
+              breederEmail,
             };
             const result = onChange(modelFields);
-            value = result?.hatchDate ?? value;
+            value = result?.typeOfReptile ?? value;
           }
-          if (errors.hatchDate?.hasError) {
-            runValidationTasks("hatchDate", value);
+          if (errors.typeOfReptile?.hasError) {
+            runValidationTasks("typeOfReptile", value);
           }
-          setHatchDate(value);
+          setTypeOfReptile(value);
         }}
-        onBlur={() => runValidationTasks("hatchDate", hatchDate)}
-        errorMessage={errors.hatchDate?.errorMessage}
-        hasError={errors.hatchDate?.hasError}
-        {...getOverrideProps(overrides, "hatchDate")}
+        onBlur={() => runValidationTasks("typeOfReptile", typeOfReptile)}
+        errorMessage={errors.typeOfReptile?.errorMessage}
+        hasError={errors.typeOfReptile?.hasError}
+        {...getOverrideProps(overrides, "typeOfReptile")}
       ></TextField>
       <TextField
         label="Species"
@@ -168,9 +185,11 @@ export default function ClutchUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              hatchDate,
+              typeOfReptile,
               species: value,
-              breeder,
+              hatchDate,
+              breederName,
+              breederEmail,
             };
             const result = onChange(modelFields);
             value = result?.species ?? value;
@@ -186,30 +205,89 @@ export default function ClutchUpdateForm(props) {
         {...getOverrideProps(overrides, "species")}
       ></TextField>
       <TextField
-        label="Breeder"
+        label="Hatch date"
         isRequired={false}
         isReadOnly={false}
-        value={breeder}
+        type="date"
+        value={hatchDate}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              hatchDate,
+              typeOfReptile,
               species,
-              breeder: value,
+              hatchDate: value,
+              breederName,
+              breederEmail,
             };
             const result = onChange(modelFields);
-            value = result?.breeder ?? value;
+            value = result?.hatchDate ?? value;
           }
-          if (errors.breeder?.hasError) {
-            runValidationTasks("breeder", value);
+          if (errors.hatchDate?.hasError) {
+            runValidationTasks("hatchDate", value);
           }
-          setBreeder(value);
+          setHatchDate(value);
         }}
-        onBlur={() => runValidationTasks("breeder", breeder)}
-        errorMessage={errors.breeder?.errorMessage}
-        hasError={errors.breeder?.hasError}
-        {...getOverrideProps(overrides, "breeder")}
+        onBlur={() => runValidationTasks("hatchDate", hatchDate)}
+        errorMessage={errors.hatchDate?.errorMessage}
+        hasError={errors.hatchDate?.hasError}
+        {...getOverrideProps(overrides, "hatchDate")}
+      ></TextField>
+      <TextField
+        label="Breeder name"
+        isRequired={false}
+        isReadOnly={false}
+        value={breederName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              typeOfReptile,
+              species,
+              hatchDate,
+              breederName: value,
+              breederEmail,
+            };
+            const result = onChange(modelFields);
+            value = result?.breederName ?? value;
+          }
+          if (errors.breederName?.hasError) {
+            runValidationTasks("breederName", value);
+          }
+          setBreederName(value);
+        }}
+        onBlur={() => runValidationTasks("breederName", breederName)}
+        errorMessage={errors.breederName?.errorMessage}
+        hasError={errors.breederName?.hasError}
+        {...getOverrideProps(overrides, "breederName")}
+      ></TextField>
+      <TextField
+        label="Breeder email"
+        isRequired={false}
+        isReadOnly={false}
+        value={breederEmail}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              typeOfReptile,
+              species,
+              hatchDate,
+              breederName,
+              breederEmail: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.breederEmail ?? value;
+          }
+          if (errors.breederEmail?.hasError) {
+            runValidationTasks("breederEmail", value);
+          }
+          setBreederEmail(value);
+        }}
+        onBlur={() => runValidationTasks("breederEmail", breederEmail)}
+        errorMessage={errors.breederEmail?.errorMessage}
+        hasError={errors.breederEmail?.hasError}
+        {...getOverrideProps(overrides, "breederEmail")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -10,8 +10,10 @@ import {
   Button,
   Flex,
   Grid,
+  Radio,
+  RadioGroupField,
   SelectField,
-  SwitchField,
+  TextAreaField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
@@ -32,33 +34,48 @@ export default function ReptileUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    alias: "",
+    typeOfReptile: "",
     species: "",
-    hatchDate: "",
+    alias: "",
     sex: "",
-    breeder: "",
+    hatchDate: "",
     image: undefined,
-    isParent: false,
+    isParent: undefined,
+    breederName: "",
+    breederEmail: "",
+    notes: "",
   };
-  const [alias, setAlias] = React.useState(initialValues.alias);
+  const [typeOfReptile, setTypeOfReptile] = React.useState(
+    initialValues.typeOfReptile
+  );
   const [species, setSpecies] = React.useState(initialValues.species);
-  const [hatchDate, setHatchDate] = React.useState(initialValues.hatchDate);
+  const [alias, setAlias] = React.useState(initialValues.alias);
   const [sex, setSex] = React.useState(initialValues.sex);
-  const [breeder, setBreeder] = React.useState(initialValues.breeder);
+  const [hatchDate, setHatchDate] = React.useState(initialValues.hatchDate);
   const [image, setImage] = React.useState(initialValues.image);
   const [isParent, setIsParent] = React.useState(initialValues.isParent);
+  const [breederName, setBreederName] = React.useState(
+    initialValues.breederName
+  );
+  const [breederEmail, setBreederEmail] = React.useState(
+    initialValues.breederEmail
+  );
+  const [notes, setNotes] = React.useState(initialValues.notes);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = reptileRecord
       ? { ...initialValues, ...reptileRecord }
       : initialValues;
-    setAlias(cleanValues.alias);
+    setTypeOfReptile(cleanValues.typeOfReptile);
     setSpecies(cleanValues.species);
-    setHatchDate(cleanValues.hatchDate);
+    setAlias(cleanValues.alias);
     setSex(cleanValues.sex);
-    setBreeder(cleanValues.breeder);
+    setHatchDate(cleanValues.hatchDate);
     setImage(cleanValues.image);
     setIsParent(cleanValues.isParent);
+    setBreederName(cleanValues.breederName);
+    setBreederEmail(cleanValues.breederEmail);
+    setNotes(cleanValues.notes);
     setErrors({});
   };
   const [reptileRecord, setReptileRecord] = React.useState(reptileModelProp);
@@ -73,13 +90,16 @@ export default function ReptileUpdateForm(props) {
   }, [idProp, reptileModelProp]);
   React.useEffect(resetStateValues, [reptileRecord]);
   const validations = {
-    alias: [{ type: "Required" }],
+    typeOfReptile: [],
     species: [],
-    hatchDate: [],
+    alias: [{ type: "Required" }],
     sex: [],
-    breeder: [],
+    hatchDate: [],
     image: [],
     isParent: [],
+    breederName: [],
+    breederEmail: [],
+    notes: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -107,13 +127,16 @@ export default function ReptileUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          alias,
+          typeOfReptile,
           species,
-          hatchDate,
+          alias,
           sex,
-          breeder,
+          hatchDate,
           image,
           isParent,
+          breederName,
+          breederEmail,
+          notes,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -160,6 +183,79 @@ export default function ReptileUpdateForm(props) {
       {...getOverrideProps(overrides, "ReptileUpdateForm")}
       {...rest}
     >
+      <Grid
+        columnGap="inherit"
+        rowGap="inherit"
+        templateColumns="repeat(2, auto)"
+        {...getOverrideProps(overrides, "RowGrid0")}
+      >
+        <TextField
+          label="Type of reptile"
+          isRequired={false}
+          isReadOnly={false}
+          value={typeOfReptile}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile: value,
+                species,
+                alias,
+                sex,
+                hatchDate,
+                image,
+                isParent,
+                breederName,
+                breederEmail,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.typeOfReptile ?? value;
+            }
+            if (errors.typeOfReptile?.hasError) {
+              runValidationTasks("typeOfReptile", value);
+            }
+            setTypeOfReptile(value);
+          }}
+          onBlur={() => runValidationTasks("typeOfReptile", typeOfReptile)}
+          errorMessage={errors.typeOfReptile?.errorMessage}
+          hasError={errors.typeOfReptile?.hasError}
+          {...getOverrideProps(overrides, "typeOfReptile")}
+        ></TextField>
+        <TextField
+          label="Species"
+          isRequired={false}
+          isReadOnly={false}
+          value={species}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile,
+                species: value,
+                alias,
+                sex,
+                hatchDate,
+                image,
+                isParent,
+                breederName,
+                breederEmail,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.species ?? value;
+            }
+            if (errors.species?.hasError) {
+              runValidationTasks("species", value);
+            }
+            setSpecies(value);
+          }}
+          onBlur={() => runValidationTasks("species", species)}
+          errorMessage={errors.species?.errorMessage}
+          hasError={errors.species?.hasError}
+          {...getOverrideProps(overrides, "species")}
+        ></TextField>
+      </Grid>
       <TextField
         label="Alias"
         isRequired={true}
@@ -169,13 +265,16 @@ export default function ReptileUpdateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              alias: value,
+              typeOfReptile,
               species,
-              hatchDate,
+              alias: value,
               sex,
-              breeder,
+              hatchDate,
               image,
               isParent,
+              breederName,
+              breederEmail,
+              notes,
             };
             const result = onChange(modelFields);
             value = result?.alias ?? value;
@@ -190,143 +289,96 @@ export default function ReptileUpdateForm(props) {
         hasError={errors.alias?.hasError}
         {...getOverrideProps(overrides, "alias")}
       ></TextField>
-      <TextField
-        label="Species"
-        isRequired={false}
-        isReadOnly={false}
-        value={species}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species: value,
-              hatchDate,
-              sex,
-              breeder,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.species ?? value;
-          }
-          if (errors.species?.hasError) {
-            runValidationTasks("species", value);
-          }
-          setSpecies(value);
-        }}
-        onBlur={() => runValidationTasks("species", species)}
-        errorMessage={errors.species?.errorMessage}
-        hasError={errors.species?.hasError}
-        {...getOverrideProps(overrides, "species")}
-      ></TextField>
-      <TextField
-        label="Hatch date"
-        isRequired={false}
-        isReadOnly={false}
-        type="date"
-        value={hatchDate}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate: value,
-              sex,
-              breeder,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.hatchDate ?? value;
-          }
-          if (errors.hatchDate?.hasError) {
-            runValidationTasks("hatchDate", value);
-          }
-          setHatchDate(value);
-        }}
-        onBlur={() => runValidationTasks("hatchDate", hatchDate)}
-        errorMessage={errors.hatchDate?.errorMessage}
-        hasError={errors.hatchDate?.hasError}
-        {...getOverrideProps(overrides, "hatchDate")}
-      ></TextField>
-      <SelectField
-        label="Sex"
-        placeholder="Please select an option"
-        isDisabled={false}
-        value={sex}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate,
-              sex: value,
-              breeder,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.sex ?? value;
-          }
-          if (errors.sex?.hasError) {
-            runValidationTasks("sex", value);
-          }
-          setSex(value);
-        }}
-        onBlur={() => runValidationTasks("sex", sex)}
-        errorMessage={errors.sex?.errorMessage}
-        hasError={errors.sex?.hasError}
-        {...getOverrideProps(overrides, "sex")}
+      <Grid
+        columnGap="inherit"
+        rowGap="inherit"
+        templateColumns="repeat(2, auto)"
+        {...getOverrideProps(overrides, "RowGrid2")}
       >
-        <option
-          children="Male"
-          value="MALE"
-          {...getOverrideProps(overrides, "sexoption0")}
-        ></option>
-        <option
-          children="Female"
-          value="FEMALE"
-          {...getOverrideProps(overrides, "sexoption1")}
-        ></option>
-        <option
-          children="Unknown"
-          value="UNKNOWN"
-          {...getOverrideProps(overrides, "sexoption2")}
-        ></option>
-      </SelectField>
-      <TextField
-        label="Breeder"
-        isRequired={false}
-        isReadOnly={false}
-        value={breeder}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              alias,
-              species,
-              hatchDate,
-              sex,
-              breeder: value,
-              image,
-              isParent,
-            };
-            const result = onChange(modelFields);
-            value = result?.breeder ?? value;
-          }
-          if (errors.breeder?.hasError) {
-            runValidationTasks("breeder", value);
-          }
-          setBreeder(value);
-        }}
-        onBlur={() => runValidationTasks("breeder", breeder)}
-        errorMessage={errors.breeder?.errorMessage}
-        hasError={errors.breeder?.hasError}
-        {...getOverrideProps(overrides, "breeder")}
-      ></TextField>
+        <SelectField
+          label="Sex"
+          placeholder="Please select an option"
+          isDisabled={false}
+          value={sex}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile,
+                species,
+                alias,
+                sex: value,
+                hatchDate,
+                image,
+                isParent,
+                breederName,
+                breederEmail,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.sex ?? value;
+            }
+            if (errors.sex?.hasError) {
+              runValidationTasks("sex", value);
+            }
+            setSex(value);
+          }}
+          onBlur={() => runValidationTasks("sex", sex)}
+          errorMessage={errors.sex?.errorMessage}
+          hasError={errors.sex?.hasError}
+          {...getOverrideProps(overrides, "sex")}
+        >
+          <option
+            children="Male"
+            value="MALE"
+            {...getOverrideProps(overrides, "sexoption0")}
+          ></option>
+          <option
+            children="Female"
+            value="FEMALE"
+            {...getOverrideProps(overrides, "sexoption1")}
+          ></option>
+          <option
+            children="Unknown"
+            value="UNKNOWN"
+            {...getOverrideProps(overrides, "sexoption2")}
+          ></option>
+        </SelectField>
+        <TextField
+          label="Hatch date"
+          isRequired={false}
+          isReadOnly={false}
+          type="date"
+          value={hatchDate}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile,
+                species,
+                alias,
+                sex,
+                hatchDate: value,
+                image,
+                isParent,
+                breederName,
+                breederEmail,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.hatchDate ?? value;
+            }
+            if (errors.hatchDate?.hasError) {
+              runValidationTasks("hatchDate", value);
+            }
+            setHatchDate(value);
+          }}
+          onBlur={() => runValidationTasks("hatchDate", hatchDate)}
+          errorMessage={errors.hatchDate?.errorMessage}
+          hasError={errors.hatchDate?.hasError}
+          {...getOverrideProps(overrides, "hatchDate")}
+        ></TextField>
+      </Grid>
       <Field
         errorMessage={errors.image?.errorMessage}
         hasError={errors.image?.hasError}
@@ -342,13 +394,16 @@ export default function ReptileUpdateForm(props) {
                 let value = key;
                 if (onChange) {
                   const modelFields = {
-                    alias,
+                    typeOfReptile,
                     species,
-                    hatchDate,
+                    alias,
                     sex,
-                    breeder,
+                    hatchDate,
                     image: value,
                     isParent,
+                    breederName,
+                    breederEmail,
+                    notes,
                   };
                   const result = onChange(modelFields);
                   value = result?.image ?? value;
@@ -361,13 +416,16 @@ export default function ReptileUpdateForm(props) {
                 let value = initialValues?.image;
                 if (onChange) {
                   const modelFields = {
-                    alias,
+                    typeOfReptile,
                     species,
-                    hatchDate,
+                    alias,
                     sex,
-                    breeder,
+                    hatchDate,
                     image: value,
                     isParent,
+                    breederName,
+                    breederEmail,
+                    notes,
                   };
                   const result = onChange(modelFields);
                   value = result?.image ?? value;
@@ -385,22 +443,26 @@ export default function ReptileUpdateForm(props) {
           ></StorageManager>
         )}
       </Field>
-      <SwitchField
-        label="This reptile is a parent"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={isParent}
+      <RadioGroupField
+        label="Select one:"
+        name="isParent"
+        isReadOnly={false}
+        isRequired={false}
+        defaultValue={isParent}
         onChange={(e) => {
-          let value = e.target.checked;
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              alias,
+              typeOfReptile,
               species,
-              hatchDate,
+              alias,
               sex,
-              breeder,
+              hatchDate,
               image,
               isParent: value,
+              breederName,
+              breederEmail,
+              notes,
             };
             const result = onChange(modelFields);
             value = result?.isParent ?? value;
@@ -414,7 +476,129 @@ export default function ReptileUpdateForm(props) {
         errorMessage={errors.isParent?.errorMessage}
         hasError={errors.isParent?.hasError}
         {...getOverrideProps(overrides, "isParent")}
-      ></SwitchField>
+      >
+        <Radio
+          children="This reptile is not a parent"
+          value="NOTPARENT"
+          {...getOverrideProps(overrides, "isParentRadio0")}
+        ></Radio>
+        <Radio
+          children="Sire"
+          value="SIRE"
+          {...getOverrideProps(overrides, "isParentRadio1")}
+        ></Radio>
+        <Radio
+          children="Dam"
+          value="DAM"
+          {...getOverrideProps(overrides, "isParentRadio2")}
+        ></Radio>
+      </RadioGroupField>
+      <Grid
+        columnGap="inherit"
+        rowGap="inherit"
+        templateColumns="repeat(2, auto)"
+        {...getOverrideProps(overrides, "RowGrid5")}
+      >
+        <TextField
+          label="Breeder name"
+          isRequired={false}
+          isReadOnly={false}
+          value={breederName}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile,
+                species,
+                alias,
+                sex,
+                hatchDate,
+                image,
+                isParent,
+                breederName: value,
+                breederEmail,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.breederName ?? value;
+            }
+            if (errors.breederName?.hasError) {
+              runValidationTasks("breederName", value);
+            }
+            setBreederName(value);
+          }}
+          onBlur={() => runValidationTasks("breederName", breederName)}
+          errorMessage={errors.breederName?.errorMessage}
+          hasError={errors.breederName?.hasError}
+          {...getOverrideProps(overrides, "breederName")}
+        ></TextField>
+        <TextField
+          label="Breeder email"
+          isRequired={false}
+          isReadOnly={false}
+          value={breederEmail}
+          onChange={(e) => {
+            let { value } = e.target;
+            if (onChange) {
+              const modelFields = {
+                typeOfReptile,
+                species,
+                alias,
+                sex,
+                hatchDate,
+                image,
+                isParent,
+                breederName,
+                breederEmail: value,
+                notes,
+              };
+              const result = onChange(modelFields);
+              value = result?.breederEmail ?? value;
+            }
+            if (errors.breederEmail?.hasError) {
+              runValidationTasks("breederEmail", value);
+            }
+            setBreederEmail(value);
+          }}
+          onBlur={() => runValidationTasks("breederEmail", breederEmail)}
+          errorMessage={errors.breederEmail?.errorMessage}
+          hasError={errors.breederEmail?.hasError}
+          {...getOverrideProps(overrides, "breederEmail")}
+        ></TextField>
+      </Grid>
+      <TextAreaField
+        label="Additional notes"
+        isRequired={false}
+        isReadOnly={false}
+        value={notes}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              typeOfReptile,
+              species,
+              alias,
+              sex,
+              hatchDate,
+              image,
+              isParent,
+              breederName,
+              breederEmail,
+              notes: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.notes ?? value;
+          }
+          if (errors.notes?.hasError) {
+            runValidationTasks("notes", value);
+          }
+          setNotes(value);
+        }}
+        onBlur={() => runValidationTasks("notes", notes)}
+        errorMessage={errors.notes?.errorMessage}
+        hasError={errors.notes?.hasError}
+        {...getOverrideProps(overrides, "notes")}
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

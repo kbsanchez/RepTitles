@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -13,15 +13,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type DocumentCreateFormInputValues = {
-    title?: string;
+    docType?: string;
+    breederName?: string;
+    breederEmail?: string;
+    ownerName?: string;
+    ownerEmail?: string;
+    purchaseOrHatchDate?: string;
 };
 export declare type DocumentCreateFormValidationValues = {
-    title?: ValidationFunction<string>;
+    docType?: ValidationFunction<string>;
+    breederName?: ValidationFunction<string>;
+    breederEmail?: ValidationFunction<string>;
+    ownerName?: ValidationFunction<string>;
+    ownerEmail?: ValidationFunction<string>;
+    purchaseOrHatchDate?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DocumentCreateFormOverridesProps = {
     DocumentCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    title?: PrimitiveOverrideProps<TextFieldProps>;
+    docType?: PrimitiveOverrideProps<SelectFieldProps>;
+    breederName?: PrimitiveOverrideProps<TextFieldProps>;
+    breederEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    ownerName?: PrimitiveOverrideProps<TextFieldProps>;
+    ownerEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    purchaseOrHatchDate?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DocumentCreateFormProps = React.PropsWithChildren<{
     overrides?: DocumentCreateFormOverridesProps | undefined | null;

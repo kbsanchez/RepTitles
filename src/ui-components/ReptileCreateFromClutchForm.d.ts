@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
@@ -17,11 +17,13 @@ export declare type ReptileCreateFromClutchFormInputValues = {
     alias?: string;
     sex?: string;
     image?: string;
+    notes?: string;
 };
 export declare type ReptileCreateFromClutchFormValidationValues = {
     alias?: ValidationFunction<string>;
     sex?: ValidationFunction<string>;
     image?: ValidationFunction<string>;
+    notes?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReptileCreateFromClutchFormOverridesProps = {
@@ -29,6 +31,7 @@ export declare type ReptileCreateFromClutchFormOverridesProps = {
     alias?: PrimitiveOverrideProps<TextFieldProps>;
     sex?: PrimitiveOverrideProps<SelectFieldProps>;
     image?: PrimitiveOverrideProps<StorageManagerProps>;
+    notes?: PrimitiveOverrideProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type ReptileCreateFromClutchFormProps = React.PropsWithChildren<{
     overrides?: ReptileCreateFromClutchFormOverridesProps | undefined | null;

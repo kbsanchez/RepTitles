@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, StepperFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { CheckboxFieldProps, GridProps, StepperFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -13,24 +13,34 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ClutchCreateFormInputValues = {
-    hatchDate?: string;
+    typeOfReptile?: string;
     species?: string;
-    breeder?: string;
-    numReptilesInClutch?: number;
+    Field0?: number;
+    hatchDate?: string;
+    Field1?: boolean;
+    breederName?: string;
+    breederEmail?: string;
 };
 export declare type ClutchCreateFormValidationValues = {
-    hatchDate?: ValidationFunction<string>;
+    typeOfReptile?: ValidationFunction<string>;
     species?: ValidationFunction<string>;
-    breeder?: ValidationFunction<string>;
-    numReptilesInClutch?: ValidationFunction<number>;
+    Field0?: ValidationFunction<number>;
+    hatchDate?: ValidationFunction<string>;
+    Field1?: ValidationFunction<boolean>;
+    breederName?: ValidationFunction<string>;
+    breederEmail?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ClutchCreateFormOverridesProps = {
     ClutchCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    typeOfReptile?: PrimitiveOverrideProps<TextFieldProps>;
     species?: PrimitiveOverrideProps<TextFieldProps>;
-    breeder?: PrimitiveOverrideProps<TextFieldProps>;
-    numReptilesInClutch?: PrimitiveOverrideProps<StepperFieldProps>;
+    Field0?: PrimitiveOverrideProps<StepperFieldProps>;
+    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    Field1?: PrimitiveOverrideProps<CheckboxFieldProps>;
+    RowGrid5?: PrimitiveOverrideProps<GridProps>;
+    breederName?: PrimitiveOverrideProps<TextFieldProps>;
+    breederEmail?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ClutchCreateFormProps = React.PropsWithChildren<{
     overrides?: ClutchCreateFormOverridesProps | undefined | null;

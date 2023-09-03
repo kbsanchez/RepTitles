@@ -1,3 +1,9 @@
+enum Parent {
+  NOTPARENT
+  SIRE
+  DAM
+}
+
 type Transaction @model @auth(rules: [{allow: owner, operations: [create, read, update]}]) {
   id: ID!
   documentID: ID! @index(name: "byDocument")
@@ -10,11 +16,13 @@ type Clutch @model @auth(rules: [{allow: owner}]) {
   species: String
   Sire: Reptile @hasOne
   Dam: Reptile @hasOne
-  breeder: String
+  breederName: String
+  typeOfReptile: String
+  breederEmail: String
 }
 
 enum DocType {
-  BIRTH
+  HATCH
   SALE
 }
 
@@ -26,27 +34,31 @@ enum Sex {
 
 type Reptile @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  alias: String!
+  typeOfReptile: String
   documents: [Document] @hasMany(indexName: "byReptile", fields: ["id"])
   species: String
-  hatchDate: AWSDate
+  alias: String!
   sex: Sex
-  breeder: String
+  hatchDate: AWSDate
+  breederName: String
+  breederEmail: String
+  clutchID: ID @index(name: "byClutch")
   image: String
-  isParent: Boolean
-  clutchID: ID! @index(name: "byClutch")
+  isParent: Parent
+  sold: Boolean
+  notes: String
 }
 
 type Document @model @auth(rules: [{allow: owner}]) {
   id: ID!
   reptile: Reptile @belongsTo
-  reptileID: ID! @index(name: "byReptile")
-  dateCreated: AWSDate
+  reptileID: ID @index(name: "byReptile")
   docType: DocType
   breederName: String
   breederEmail: String
-  soldToName: String
-  soldToEmail: String
+  ownerName: String
+  ownerEmail: String
   Transactions: [Transaction] @hasMany(indexName: "byDocument", fields: ["id"])
+  purchaseOrHatchDate: AWSDate
 }
  

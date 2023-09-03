@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SelectField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Document } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -24,15 +30,36 @@ export default function DocumentUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    title: "",
+    docType: "",
+    breederName: "",
+    breederEmail: "",
+    ownerName: "",
+    ownerEmail: "",
+    purchaseOrHatchDate: "",
   };
-  const [title, setTitle] = React.useState(initialValues.title);
+  const [docType, setDocType] = React.useState(initialValues.docType);
+  const [breederName, setBreederName] = React.useState(
+    initialValues.breederName
+  );
+  const [breederEmail, setBreederEmail] = React.useState(
+    initialValues.breederEmail
+  );
+  const [ownerName, setOwnerName] = React.useState(initialValues.ownerName);
+  const [ownerEmail, setOwnerEmail] = React.useState(initialValues.ownerEmail);
+  const [purchaseOrHatchDate, setPurchaseOrHatchDate] = React.useState(
+    initialValues.purchaseOrHatchDate
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = documentRecord
       ? { ...initialValues, ...documentRecord }
       : initialValues;
-    setTitle(cleanValues.title);
+    setDocType(cleanValues.docType);
+    setBreederName(cleanValues.breederName);
+    setBreederEmail(cleanValues.breederEmail);
+    setOwnerName(cleanValues.ownerName);
+    setOwnerEmail(cleanValues.ownerEmail);
+    setPurchaseOrHatchDate(cleanValues.purchaseOrHatchDate);
     setErrors({});
   };
   const [documentRecord, setDocumentRecord] = React.useState(documentModelProp);
@@ -47,7 +74,12 @@ export default function DocumentUpdateForm(props) {
   }, [idProp, documentModelProp]);
   React.useEffect(resetStateValues, [documentRecord]);
   const validations = {
-    title: [{ type: "Required" }],
+    docType: [],
+    breederName: [],
+    breederEmail: [],
+    ownerName: [],
+    ownerEmail: [],
+    purchaseOrHatchDate: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -75,7 +107,12 @@ export default function DocumentUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          title,
+          docType,
+          breederName,
+          breederEmail,
+          ownerName,
+          ownerEmail,
+          purchaseOrHatchDate,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,29 +159,193 @@ export default function DocumentUpdateForm(props) {
       {...getOverrideProps(overrides, "DocumentUpdateForm")}
       {...rest}
     >
-      <TextField
-        label="Title"
-        isRequired={true}
-        isReadOnly={false}
-        value={title}
+      <SelectField
+        label="Doc type"
+        placeholder="Please select an option"
+        isDisabled={false}
+        value={docType}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              title: value,
+              docType: value,
+              breederName,
+              breederEmail,
+              ownerName,
+              ownerEmail,
+              purchaseOrHatchDate,
             };
             const result = onChange(modelFields);
-            value = result?.title ?? value;
+            value = result?.docType ?? value;
           }
-          if (errors.title?.hasError) {
-            runValidationTasks("title", value);
+          if (errors.docType?.hasError) {
+            runValidationTasks("docType", value);
           }
-          setTitle(value);
+          setDocType(value);
         }}
-        onBlur={() => runValidationTasks("title", title)}
-        errorMessage={errors.title?.errorMessage}
-        hasError={errors.title?.hasError}
-        {...getOverrideProps(overrides, "title")}
+        onBlur={() => runValidationTasks("docType", docType)}
+        errorMessage={errors.docType?.errorMessage}
+        hasError={errors.docType?.hasError}
+        {...getOverrideProps(overrides, "docType")}
+      >
+        <option
+          children="Hatch"
+          value="HATCH"
+          {...getOverrideProps(overrides, "docTypeoption0")}
+        ></option>
+        <option
+          children="Sale"
+          value="SALE"
+          {...getOverrideProps(overrides, "docTypeoption1")}
+        ></option>
+      </SelectField>
+      <TextField
+        label="Breeder name"
+        isRequired={false}
+        isReadOnly={false}
+        value={breederName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              docType,
+              breederName: value,
+              breederEmail,
+              ownerName,
+              ownerEmail,
+              purchaseOrHatchDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.breederName ?? value;
+          }
+          if (errors.breederName?.hasError) {
+            runValidationTasks("breederName", value);
+          }
+          setBreederName(value);
+        }}
+        onBlur={() => runValidationTasks("breederName", breederName)}
+        errorMessage={errors.breederName?.errorMessage}
+        hasError={errors.breederName?.hasError}
+        {...getOverrideProps(overrides, "breederName")}
+      ></TextField>
+      <TextField
+        label="Breeder email"
+        isRequired={false}
+        isReadOnly={false}
+        value={breederEmail}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              docType,
+              breederName,
+              breederEmail: value,
+              ownerName,
+              ownerEmail,
+              purchaseOrHatchDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.breederEmail ?? value;
+          }
+          if (errors.breederEmail?.hasError) {
+            runValidationTasks("breederEmail", value);
+          }
+          setBreederEmail(value);
+        }}
+        onBlur={() => runValidationTasks("breederEmail", breederEmail)}
+        errorMessage={errors.breederEmail?.errorMessage}
+        hasError={errors.breederEmail?.hasError}
+        {...getOverrideProps(overrides, "breederEmail")}
+      ></TextField>
+      <TextField
+        label="Owner name"
+        isRequired={false}
+        isReadOnly={false}
+        value={ownerName}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              docType,
+              breederName,
+              breederEmail,
+              ownerName: value,
+              ownerEmail,
+              purchaseOrHatchDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.ownerName ?? value;
+          }
+          if (errors.ownerName?.hasError) {
+            runValidationTasks("ownerName", value);
+          }
+          setOwnerName(value);
+        }}
+        onBlur={() => runValidationTasks("ownerName", ownerName)}
+        errorMessage={errors.ownerName?.errorMessage}
+        hasError={errors.ownerName?.hasError}
+        {...getOverrideProps(overrides, "ownerName")}
+      ></TextField>
+      <TextField
+        label="Owner email"
+        isRequired={false}
+        isReadOnly={false}
+        value={ownerEmail}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              docType,
+              breederName,
+              breederEmail,
+              ownerName,
+              ownerEmail: value,
+              purchaseOrHatchDate,
+            };
+            const result = onChange(modelFields);
+            value = result?.ownerEmail ?? value;
+          }
+          if (errors.ownerEmail?.hasError) {
+            runValidationTasks("ownerEmail", value);
+          }
+          setOwnerEmail(value);
+        }}
+        onBlur={() => runValidationTasks("ownerEmail", ownerEmail)}
+        errorMessage={errors.ownerEmail?.errorMessage}
+        hasError={errors.ownerEmail?.hasError}
+        {...getOverrideProps(overrides, "ownerEmail")}
+      ></TextField>
+      <TextField
+        label="Purchase or hatch date"
+        isRequired={false}
+        isReadOnly={false}
+        type="date"
+        value={purchaseOrHatchDate}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              docType,
+              breederName,
+              breederEmail,
+              ownerName,
+              ownerEmail,
+              purchaseOrHatchDate: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.purchaseOrHatchDate ?? value;
+          }
+          if (errors.purchaseOrHatchDate?.hasError) {
+            runValidationTasks("purchaseOrHatchDate", value);
+          }
+          setPurchaseOrHatchDate(value);
+        }}
+        onBlur={() =>
+          runValidationTasks("purchaseOrHatchDate", purchaseOrHatchDate)
+        }
+        errorMessage={errors.purchaseOrHatchDate?.errorMessage}
+        hasError={errors.purchaseOrHatchDate?.hasError}
+        {...getOverrideProps(overrides, "purchaseOrHatchDate")}
       ></TextField>
       <Flex
         justifyContent="space-between"

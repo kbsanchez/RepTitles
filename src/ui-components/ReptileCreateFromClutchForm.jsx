@@ -11,6 +11,7 @@ import {
   Flex,
   Grid,
   SelectField,
+  TextAreaField,
   TextField,
 } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
@@ -33,21 +34,25 @@ export default function ReptileCreateFromClutchForm(props) {
     alias: "",
     sex: "",
     image: undefined,
+    notes: "",
   };
   const [alias, setAlias] = React.useState(initialValues.alias);
   const [sex, setSex] = React.useState(initialValues.sex);
   const [image, setImage] = React.useState(initialValues.image);
+  const [notes, setNotes] = React.useState(initialValues.notes);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setAlias(initialValues.alias);
     setSex(initialValues.sex);
     setImage(initialValues.image);
+    setNotes(initialValues.notes);
     setErrors({});
   };
   const validations = {
     alias: [{ type: "Required" }],
     sex: [],
     image: [],
+    notes: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -78,6 +83,7 @@ export default function ReptileCreateFromClutchForm(props) {
           alias,
           sex,
           image,
+          notes,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -135,6 +141,7 @@ export default function ReptileCreateFromClutchForm(props) {
               alias: value,
               sex,
               image,
+              notes,
             };
             const result = onChange(modelFields);
             value = result?.alias ?? value;
@@ -161,6 +168,7 @@ export default function ReptileCreateFromClutchForm(props) {
               alias,
               sex: value,
               image,
+              notes,
             };
             const result = onChange(modelFields);
             value = result?.sex ?? value;
@@ -207,6 +215,7 @@ export default function ReptileCreateFromClutchForm(props) {
                   alias,
                   sex,
                   image: value,
+                  notes,
                 };
                 const result = onChange(modelFields);
                 value = result?.image ?? value;
@@ -222,6 +231,7 @@ export default function ReptileCreateFromClutchForm(props) {
                   alias,
                   sex,
                   image: value,
+                  notes,
                 };
                 const result = onChange(modelFields);
                 value = result?.image ?? value;
@@ -238,6 +248,32 @@ export default function ReptileCreateFromClutchForm(props) {
           {...getOverrideProps(overrides, "image")}
         ></StorageManager>
       </Field>
+      <TextAreaField
+        label="Additional notes"
+        isRequired={false}
+        isReadOnly={false}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              alias,
+              sex,
+              image,
+              notes: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.notes ?? value;
+          }
+          if (errors.notes?.hasError) {
+            runValidationTasks("notes", value);
+          }
+          setNotes(value);
+        }}
+        onBlur={() => runValidationTasks("notes", notes)}
+        errorMessage={errors.notes?.errorMessage}
+        hasError={errors.notes?.hasError}
+        {...getOverrideProps(overrides, "notes")}
+      ></TextAreaField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

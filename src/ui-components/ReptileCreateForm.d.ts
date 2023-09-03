@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SelectFieldProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { CheckboxFieldProps, GridProps, RadioGroupFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
@@ -14,33 +14,48 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ReptileCreateFormInputValues = {
-    alias?: string;
+    typeOfReptile?: string;
     species?: string;
-    hatchDate?: string;
+    alias?: string;
     sex?: string;
-    breeder?: string;
+    hatchDate?: string;
+    isParent?: string;
     image?: string;
-    isParent?: boolean;
+    Field0?: boolean;
+    breederName?: string;
+    breederEmail?: string;
+    notes?: string;
 };
 export declare type ReptileCreateFormValidationValues = {
-    alias?: ValidationFunction<string>;
+    typeOfReptile?: ValidationFunction<string>;
     species?: ValidationFunction<string>;
-    hatchDate?: ValidationFunction<string>;
+    alias?: ValidationFunction<string>;
     sex?: ValidationFunction<string>;
-    breeder?: ValidationFunction<string>;
+    hatchDate?: ValidationFunction<string>;
+    isParent?: ValidationFunction<string>;
     image?: ValidationFunction<string>;
-    isParent?: ValidationFunction<boolean>;
+    Field0?: ValidationFunction<boolean>;
+    breederName?: ValidationFunction<string>;
+    breederEmail?: ValidationFunction<string>;
+    notes?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ReptileCreateFormOverridesProps = {
     ReptileCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    alias?: PrimitiveOverrideProps<TextFieldProps>;
+    RowGrid0?: PrimitiveOverrideProps<GridProps>;
+    typeOfReptile?: PrimitiveOverrideProps<TextFieldProps>;
     species?: PrimitiveOverrideProps<TextFieldProps>;
-    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    alias?: PrimitiveOverrideProps<TextFieldProps>;
+    RowGrid2?: PrimitiveOverrideProps<GridProps>;
     sex?: PrimitiveOverrideProps<SelectFieldProps>;
-    breeder?: PrimitiveOverrideProps<TextFieldProps>;
+    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    isParent?: PrimitiveOverrideProps<RadioGroupFieldProps>;
     image?: PrimitiveOverrideProps<StorageManagerProps>;
-    isParent?: PrimitiveOverrideProps<SwitchFieldProps>;
+    Field0?: PrimitiveOverrideProps<CheckboxFieldProps>;
+    RowGrid6?: PrimitiveOverrideProps<GridProps>;
+    breederName?: PrimitiveOverrideProps<TextFieldProps>;
+    breederEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    notes?: PrimitiveOverrideProps<TextAreaFieldProps>;
 } & EscapeHatchProps;
 export declare type ReptileCreateFormProps = React.PropsWithChildren<{
     overrides?: ReptileCreateFormOverridesProps | undefined | null;

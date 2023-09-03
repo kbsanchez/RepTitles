@@ -4,9 +4,8 @@
     "apiName": "reptitles",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "keyDescription": "api key description",
-      "expirationTime": 30
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authreptitles8f68a227"
     },
     "conflictResolution": {
       "defaultResolutionStrategy": {
@@ -16,10 +15,6 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
-      },
-      {
-        "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authreptitles8f68a227"
       }
     ]
   }

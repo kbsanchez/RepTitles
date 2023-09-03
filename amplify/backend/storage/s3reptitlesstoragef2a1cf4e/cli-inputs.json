@@ -1,0 +1,12 @@
+{
+  "resourceName": "s3reptitlesstoragef2a1cf4e",
+  "bucketName": "reptitles-storage-f2a1cf4e",
+  "policyUUID": "3a6691b3",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}

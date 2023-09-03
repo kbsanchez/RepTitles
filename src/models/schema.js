@@ -146,8 +146,22 @@ export const schema = {
                         ]
                     }
                 },
-                "breeder": {
-                    "name": "breeder",
+                "breederName": {
+                    "name": "breederName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "typeOfReptile": {
+                    "name": "typeOfReptile",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "breederEmail": {
+                    "name": "breederEmail",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -222,11 +236,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "alias": {
-                    "name": "alias",
+                "typeOfReptile": {
+                    "name": "typeOfReptile",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "documents": {
@@ -252,11 +266,11 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "hatchDate": {
-                    "name": "hatchDate",
+                "alias": {
+                    "name": "alias",
                     "isArray": false,
-                    "type": "AWSDate",
-                    "isRequired": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "sex": {
@@ -268,10 +282,31 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "breeder": {
-                    "name": "breeder",
+                "hatchDate": {
+                    "name": "hatchDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "breederName": {
+                    "name": "breederName",
                     "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "breederEmail": {
+                    "name": "breederEmail",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "clutchID": {
+                    "name": "clutchID",
+                    "isArray": false,
+                    "type": "ID",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -285,15 +320,24 @@ export const schema = {
                 "isParent": {
                     "name": "isParent",
                     "isArray": false,
+                    "type": {
+                        "enum": "Parent"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sold": {
+                    "name": "sold",
+                    "isArray": false,
                     "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
-                "clutchID": {
-                    "name": "clutchID",
+                "notes": {
+                    "name": "notes",
                     "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
+                    "type": "String",
+                    "isRequired": false,
                     "attributes": []
                 },
                 "createdAt": {
@@ -379,13 +423,6 @@ export const schema = {
                     "name": "reptileID",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "dateCreated": {
-                    "name": "dateCreated",
-                    "isArray": false,
-                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -412,15 +449,15 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "soldToName": {
-                    "name": "soldToName",
+                "ownerName": {
+                    "name": "ownerName",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "soldToEmail": {
-                    "name": "soldToEmail",
+                "ownerEmail": {
+                    "name": "ownerEmail",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -441,6 +478,13 @@ export const schema = {
                             "documentID"
                         ]
                     }
+                },
+                "purchaseOrHatchDate": {
+                    "name": "purchaseOrHatchDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -505,10 +549,18 @@ export const schema = {
         }
     },
     "enums": {
+        "Parent": {
+            "name": "Parent",
+            "values": [
+                "NOTPARENT",
+                "SIRE",
+                "DAM"
+            ]
+        },
         "DocType": {
             "name": "DocType",
             "values": [
-                "BIRTH",
+                "HATCH",
                 "SALE"
             ]
         },
@@ -523,5 +575,5 @@ export const schema = {
     },
     "nonModels": {},
     "codegenVersion": "3.4.4",
-    "version": "0478df50bb63dd66fac9cf55773b8460"
+    "version": "198801fe418bd717e00457b42c21871d"
 };

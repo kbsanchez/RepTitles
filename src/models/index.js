@@ -2,8 +2,14 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const Parent = {
+  "NOTPARENT": "NOTPARENT",
+  "SIRE": "SIRE",
+  "DAM": "DAM"
+};
+
 const DocType = {
-  "BIRTH": "BIRTH",
+  "HATCH": "HATCH",
   "SALE": "SALE"
 };
 
@@ -20,6 +26,7 @@ export {
   Clutch,
   Reptile,
   Document,
+  Parent,
   DocType,
   Sex
 };

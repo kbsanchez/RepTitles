@@ -2,8 +2,14 @@ import { ModelInit, MutableModel, __modelMeta__, ManagedIdentifier } from "@aws-
 // @ts-ignore
 import { LazyLoading, LazyLoadingDisabled, AsyncCollection, AsyncItem } from "@aws-amplify/datastore";
 
+export enum Parent {
+  NOTPARENT = "NOTPARENT",
+  SIRE = "SIRE",
+  DAM = "DAM"
+}
+
 export enum DocType {
-  BIRTH = "BIRTH",
+  HATCH = "HATCH",
   SALE = "SALE"
 }
 
@@ -54,7 +60,9 @@ type EagerClutch = {
   readonly species?: string | null;
   readonly Sire?: Reptile | null;
   readonly Dam?: Reptile | null;
-  readonly breeder?: string | null;
+  readonly breederName?: string | null;
+  readonly typeOfReptile?: string | null;
+  readonly breederEmail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly clutchSireId?: string | null;
@@ -72,7 +80,9 @@ type LazyClutch = {
   readonly species?: string | null;
   readonly Sire: AsyncItem<Reptile | undefined>;
   readonly Dam: AsyncItem<Reptile | undefined>;
-  readonly breeder?: string | null;
+  readonly breederName?: string | null;
+  readonly typeOfReptile?: string | null;
+  readonly breederEmail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly clutchSireId?: string | null;
@@ -91,15 +101,19 @@ type EagerReptile = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly alias: string;
+  readonly typeOfReptile?: string | null;
   readonly documents?: (Document | null)[] | null;
   readonly species?: string | null;
-  readonly hatchDate?: string | null;
+  readonly alias: string;
   readonly sex?: Sex | keyof typeof Sex | null;
-  readonly breeder?: string | null;
+  readonly hatchDate?: string | null;
+  readonly breederName?: string | null;
+  readonly breederEmail?: string | null;
+  readonly clutchID?: string | null;
   readonly image?: string | null;
-  readonly isParent?: boolean | null;
-  readonly clutchID: string;
+  readonly isParent?: Parent | keyof typeof Parent | null;
+  readonly sold?: boolean | null;
+  readonly notes?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -110,15 +124,19 @@ type LazyReptile = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
-  readonly alias: string;
+  readonly typeOfReptile?: string | null;
   readonly documents: AsyncCollection<Document>;
   readonly species?: string | null;
-  readonly hatchDate?: string | null;
+  readonly alias: string;
   readonly sex?: Sex | keyof typeof Sex | null;
-  readonly breeder?: string | null;
+  readonly hatchDate?: string | null;
+  readonly breederName?: string | null;
+  readonly breederEmail?: string | null;
+  readonly clutchID?: string | null;
   readonly image?: string | null;
-  readonly isParent?: boolean | null;
-  readonly clutchID: string;
+  readonly isParent?: Parent | keyof typeof Parent | null;
+  readonly sold?: boolean | null;
+  readonly notes?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -136,14 +154,14 @@ type EagerDocument = {
   };
   readonly id: string;
   readonly reptile?: Reptile | null;
-  readonly reptileID: string;
-  readonly dateCreated?: string | null;
+  readonly reptileID?: string | null;
   readonly docType?: DocType | keyof typeof DocType | null;
   readonly breederName?: string | null;
   readonly breederEmail?: string | null;
-  readonly soldToName?: string | null;
-  readonly soldToEmail?: string | null;
+  readonly ownerName?: string | null;
+  readonly ownerEmail?: string | null;
   readonly Transactions?: (Transaction | null)[] | null;
+  readonly purchaseOrHatchDate?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly reptileDocumentsId?: string | null;
@@ -156,14 +174,14 @@ type LazyDocument = {
   };
   readonly id: string;
   readonly reptile: AsyncItem<Reptile | undefined>;
-  readonly reptileID: string;
-  readonly dateCreated?: string | null;
+  readonly reptileID?: string | null;
   readonly docType?: DocType | keyof typeof DocType | null;
   readonly breederName?: string | null;
   readonly breederEmail?: string | null;
-  readonly soldToName?: string | null;
-  readonly soldToEmail?: string | null;
+  readonly ownerName?: string | null;
+  readonly ownerEmail?: string | null;
   readonly Transactions: AsyncCollection<Transaction>;
+  readonly purchaseOrHatchDate?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   readonly reptileDocumentsId?: string | null;

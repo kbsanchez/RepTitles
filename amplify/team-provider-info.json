@@ -17,6 +17,9 @@
       },
       "auth": {
         "reptitles8f68a227": {}
+      },
+      "storage": {
+        "s3reptitlesstoragef2a1cf4e": {}
       }
     }
   }

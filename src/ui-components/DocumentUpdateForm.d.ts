@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { Document } from "../models";
 export declare type ValidationResponse = {
@@ -14,15 +14,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type DocumentUpdateFormInputValues = {
-    title?: string;
+    docType?: string;
+    breederName?: string;
+    breederEmail?: string;
+    ownerName?: string;
+    ownerEmail?: string;
+    purchaseOrHatchDate?: string;
 };
 export declare type DocumentUpdateFormValidationValues = {
-    title?: ValidationFunction<string>;
+    docType?: ValidationFunction<string>;
+    breederName?: ValidationFunction<string>;
+    breederEmail?: ValidationFunction<string>;
+    ownerName?: ValidationFunction<string>;
+    ownerEmail?: ValidationFunction<string>;
+    purchaseOrHatchDate?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type DocumentUpdateFormOverridesProps = {
     DocumentUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    title?: PrimitiveOverrideProps<TextFieldProps>;
+    docType?: PrimitiveOverrideProps<SelectFieldProps>;
+    breederName?: PrimitiveOverrideProps<TextFieldProps>;
+    breederEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    ownerName?: PrimitiveOverrideProps<TextFieldProps>;
+    ownerEmail?: PrimitiveOverrideProps<TextFieldProps>;
+    purchaseOrHatchDate?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type DocumentUpdateFormProps = React.PropsWithChildren<{
     overrides?: DocumentUpdateFormOverridesProps | undefined | null;

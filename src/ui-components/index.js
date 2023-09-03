@@ -6,8 +6,9 @@
 
 export { default as ClutchCreateForm } from "./ClutchCreateForm";
 export { default as ClutchUpdateForm } from "./ClutchUpdateForm";
-export { default as ContactUs } from "./ContactUs";
 export { default as CustomerReviews4x1 } from "./CustomerReviews4x1";
+export { default as DocumentCreateForm } from "./DocumentCreateForm";
+export { default as DocumentUpdateForm } from "./DocumentUpdateForm";
 export { default as EditProfile } from "./EditProfile";
 export { default as FAQItem } from "./FAQItem";
 export { default as Features2x2 } from "./Features2x2";

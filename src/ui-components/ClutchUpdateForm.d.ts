@@ -14,21 +14,27 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ClutchUpdateFormInputValues = {
-    hatchDate?: string;
+    typeOfReptile?: string;
     species?: string;
-    breeder?: string;
+    hatchDate?: string;
+    breederName?: string;
+    breederEmail?: string;
 };
 export declare type ClutchUpdateFormValidationValues = {
-    hatchDate?: ValidationFunction<string>;
+    typeOfReptile?: ValidationFunction<string>;
     species?: ValidationFunction<string>;
-    breeder?: ValidationFunction<string>;
+    hatchDate?: ValidationFunction<string>;
+    breederName?: ValidationFunction<string>;
+    breederEmail?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ClutchUpdateFormOverridesProps = {
     ClutchUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    typeOfReptile?: PrimitiveOverrideProps<TextFieldProps>;
     species?: PrimitiveOverrideProps<TextFieldProps>;
-    breeder?: PrimitiveOverrideProps<TextFieldProps>;
+    hatchDate?: PrimitiveOverrideProps<TextFieldProps>;
+    breederName?: PrimitiveOverrideProps<TextFieldProps>;
+    breederEmail?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ClutchUpdateFormProps = React.PropsWithChildren<{
     overrides?: ClutchUpdateFormOverridesProps | undefined | null;
