@@ -17,18 +17,18 @@ export function Layout() {
   }
   return (
     <>
-      <nav>
-        <Button onClick={() => navigate('/')}>Home</Button>
-        <Button onClick={() => navigate('/reptiles')}>
+      <nav style={{borderBottom: '2px', borderColor: '#000000'}}>
+        <Button variation='link' onClick={() => navigate('/')}>Home</Button>
+        <Button variation='link' onClick={() => navigate('/reptiles')}>
           Reptiles
         </Button>
-        <Button onClick={() => navigate('/documents')}>
+        <Button variation='link' onClick={() => navigate('/documents')}>
           Documents
         </Button>
         {route !== 'authenticated' ? (
-          <Button onClick={() => navigate('/login')}>Login</Button>
+          <Button variation='primary' onClick={() => navigate('/login')}>Login</Button>
         ) : (
-          <Button onClick={async () => {
+          <Button variation='secondary' onClick={async () => {
             await DataStore.clear()
             logOut()
           }}>Logout</Button>

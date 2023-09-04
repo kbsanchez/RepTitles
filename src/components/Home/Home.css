@@ -1,0 +1,40 @@
+.hero-container {
+    height: 400px;
+    display: flex;
+}
+
+.features-container {
+    height: 400px;
+    background-color: black;
+}
+
+.hero-message {
+    min-height: 100%;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.hero-image {
+    min-width: 400px;
+    min-height: 100%;
+    margin: auto;
+    float: right;
+    background-image: url("../../assets/RepTitlesLogo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 650px) { 
+    .hero-container {
+        flex-direction: column-reverse;
+        height: 800px;
+    }
+    .hero-message {
+        min-height: 400px;
+        min-width: fit-content;
+    }
+    .hero-image {
+        background-size: contain;
+        min-height: 400px;
+    }
+}
