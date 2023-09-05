@@ -3,6 +3,13 @@ import { Heading, Text, Button } from '@aws-amplify/ui-react'
 import '../Home.css'
 
 export default function Hero1() {
+    const handleClickScroll = (id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+      
     return (
         <div className='hero-container'>
             <div className='hero-message'>
@@ -26,7 +33,8 @@ export default function Hero1() {
                 </Text>
                 <Button 
                 variation='primary'
-                marginBlock='2vh'>
+                marginBlock='2vh'
+                onClick={() => handleClickScroll('features')}>
                     Learn More
                 </Button>
             </div>

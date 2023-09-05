@@ -4,13 +4,14 @@
 }
 
 .features-container {
-    height: 400px;
+    min-height:fit-content;
     background-color: black;
 }
 
 .hero-message {
     min-height: 100%;
     margin: auto;
+    margin-top: 2vh;
     vertical-align: middle;
 }
 
@@ -32,6 +33,7 @@
     .hero-message {
         min-height: 400px;
         min-width: fit-content;
+        margin-inline: 2vh;
     }
     .hero-image {
         background-size: contain;

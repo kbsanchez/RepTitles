@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataStore } from 'aws-amplify'
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAuthenticator, Button, Heading, View } from '@aws-amplify/ui-react';
+import { useAuthenticator, Button, Heading, View, Alert } from '@aws-amplify/ui-react';
 import RepTitles from '../assets/RepTitles.png'
 
 export function Layout() {
@@ -35,8 +35,23 @@ export function Layout() {
         )}
       </nav>
       <Heading level={1}><img src={RepTitles} alt="RepTitles"/></Heading>
-      <View>
-        {route === 'authenticated' ? 'You are logged in' : 'Please Login'}
+      <View marginBottom="2vh">
+        {route === 'authenticated' &&
+        <Alert
+        variation="success"
+        isDismissible={true}
+        hasIcon={true}
+        heading="Login Confirmation">
+        You have successfully logged in.
+        </Alert>}
+        {route !== 'authenticated' &&
+        <Alert
+        variation="info"
+        isDismissible={true}
+        hasIcon={true}
+        heading="Not Logged In">
+        Sign in to embrace the RepTitles revolution.
+        </Alert>}
       </View>
       <Outlet />
     </>

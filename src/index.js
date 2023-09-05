@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import { Amplify } from 'aws-amplify';
 import {ThemeProvider} from "@aws-amplify/ui-react";
-
+import { AuthModeStrategyType } from 'aws-amplify'
 import awsconfig from './aws-exports';
 import studioTheme from './ui-components/studioTheme';
 
-Amplify.configure(awsconfig);
+Amplify.configure(
+  awsconfig
+);
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
