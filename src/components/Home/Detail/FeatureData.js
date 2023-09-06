@@ -7,7 +7,7 @@ export const FeatureData = [
     {
         icon: "GiEggClutch",
         title: "Multi-Upload by Clutch",
-        desc: "Streamline the process of adding multiple reptiles with similar information by multi-uploading reptiles in the same clutch.",
+        desc: "Streamline the process of adding multiple reptiles with similar information. Upload all clutch mates with just one click.",
     },
     {
         icon: "PiEggCrackFill",
@@ -22,7 +22,7 @@ export const FeatureData = [
     {
         icon: "BsQrCode",
         title: "QR Codes",
-        desc: "Each document comes with its own unique QR code for effortless access to documents, ensuring your customers are always in the know.",
+        desc: "Each document is assigned a unique QR code, your key to effortless document access. Print and attach QR codes for a seamless experience for both you and your customers."
     },
     {
         icon: "MdMobileFriendly",

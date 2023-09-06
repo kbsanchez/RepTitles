@@ -1,0 +1,18 @@
+.footer-container {
+    background-color: black;
+    padding-top: 2vh;
+
+}
+
+.footer-copyright {
+    color: white;
+    padding: 2vh;
+}
+
+.about-container {
+    min-height: 100%;
+}
+
+.about-card-logo {
+    width: 200px;
+}

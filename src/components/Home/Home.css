@@ -3,6 +3,19 @@
     display: flex;
 }
 
+.call-to-action-container {
+    height: 400px;
+    background-image: url('../../assets/reptile-stock-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.536);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .features-container {
     min-height:fit-content;
     background-color: black;

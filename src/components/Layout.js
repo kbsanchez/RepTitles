@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DataStore } from 'aws-amplify'
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useAuthenticator, Button, Heading, View, Alert } from '@aws-amplify/ui-react';
 import RepTitles from '../assets/RepTitles.png'
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 
 export function Layout() {
   const { route, signOut } = useAuthenticator((context) => [
@@ -15,10 +16,14 @@ export function Layout() {
     signOut();
     navigate('/login');
   }
+
+  const [toggle, setToggle] = useState(false);
+  const handleToggle = () => setToggle(!toggle);
+
   return (
     <>
-      <nav style={{borderBottom: '2px', borderColor: '#000000'}}>
-        <Button variation='link' onClick={() => navigate('/')}>Home</Button>
+      <nav className='navbar'>
+        <Button className='navbar-logo' variation='link' onClick={() => navigate('/')}>Home</Button>
         <Button variation='link' onClick={() => navigate('/reptiles')}>
           Reptiles
         </Button>
