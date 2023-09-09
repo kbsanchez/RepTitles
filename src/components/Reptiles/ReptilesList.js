@@ -42,12 +42,18 @@ export const ReptilesList = () => {
         }
     };
 
-    const handleCheck = (e) => {
-        const { reptile, checked } = e.target;
-        setCheckedReptiles([...checkedReptiles, reptile.id]);
-        if (!checked) {
-        setCheckedReptiles(checkedReptiles.filter(item => item !== reptile.id));
+    const handleCheck = (reptileId) => {
+        const updatedCheckedReptiles = [...checkedReptiles];
+    
+        if (updatedCheckedReptiles.includes(reptileId)) {
+            // If the reptile is already in the checkedReptiles, uncheck it
+            updatedCheckedReptiles.splice(updatedCheckedReptiles.indexOf(reptileId), 1);
+        } else {
+            // If the reptile is not in the checkedReptiles, check it
+            updatedCheckedReptiles.push(reptileId);
         }
+    
+        setCheckedReptiles(updatedCheckedReptiles);
     };
 
     return (
@@ -120,7 +126,7 @@ export const ReptilesList = () => {
                             <TableCell>
                                 <CheckboxField
                                 checked={checkedReptiles.includes(reptile.id)}
-                                onChange={handleCheck}
+                                onChange={() => handleCheck(reptile.id)}
                                  />
                             </TableCell>
                             <TableCell>{reptile.typeOfReptile || ""}</TableCell>

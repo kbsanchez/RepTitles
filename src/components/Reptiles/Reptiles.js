@@ -1,9 +1,7 @@
 import { 
   useAuthenticator, 
-  Heading, 
   Tabs, 
-  TabItem, 
-  Divider } from '@aws-amplify/ui-react';
+  TabItem } from '@aws-amplify/ui-react';
 import { ReptilesList } from './ReptilesList';
 import { AddClutch } from './AddClutch';
 import { AddReptile } from './AddReptile';
