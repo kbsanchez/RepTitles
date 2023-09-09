@@ -14,9 +14,9 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Document } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { createDocument } from "../graphql/mutations";
 export default function DocumentCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -127,7 +127,14 @@ export default function DocumentCreateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(new Document(modelFields));
+          await API.graphql({
+            query: createDocument,
+            variables: {
+              input: {
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -136,7 +143,8 @@ export default function DocumentCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

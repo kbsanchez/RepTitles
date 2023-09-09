@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { API } from 'aws-amplify'
 import * as queries from '../../graphql/queries'
+import * as mutations from '../../graphql/mutations';
 import { 
     Table, 
     TableHead, 
@@ -8,14 +9,15 @@ import {
     TableCell, 
     TableBody,
     CheckboxField,
-    SelectField,
+    Menu,
+    MenuButton,
+    MenuItem,
     Button,
     SearchField } from '@aws-amplify/ui-react'
 
 export const ReptilesList = () => {
 
     const [reptiles, setReptiles] = useState([]);
-    const [action, setAction] = useState("");
     const [checkedReptiles, setCheckedReptiles] = useState([]);
     const [checkAll, setCheckAll] = useState(false)
 
@@ -23,9 +25,13 @@ export const ReptilesList = () => {
         fetchReptiles();
     }, []);
 
+    useEffect(() => {
+        console.log('checked reptiles: ', checkedReptiles);
+    }, [checkedReptiles]);
+
     const fetchReptiles = async () => {
         try {
-            const reptileData = await API.graphql({query: queries.listReptiles, authMode: "AMAZON_COGNITO_USER_POOLS"});
+            const reptileData = await API.graphql({query: queries.listReptiles, filter: {type: {notContains: "_deleted"}}, authMode: "AMAZON_COGNITO_USER_POOLS"});
             const reptileList = reptileData.data.listReptiles.items;
             console.log('reptile list', reptileList);
             setReptiles(reptileList);
@@ -33,6 +39,28 @@ export const ReptilesList = () => {
             console.log('error on fetching reptiles', error);
         }
     };
+
+    const handleDelete = async () => {
+        try {
+          // Check if there are selected reptiles to delete
+          if (checkedReptiles.length > 0) {
+            // Loop through the selected reptiles and delete them one by one
+            for (const reptileId of checkedReptiles) {
+              await API.graphql({
+                query: mutations.deleteReptile,
+                variables: { input: { id: reptileId } },
+                authMode: 'AMAZON_COGNITO_USER_POOLS',
+              });
+            }
+            // After deleting, fetch the updated list of reptiles
+            fetchReptiles();
+            // Clear the checkedReptiles array
+            setCheckedReptiles([]);
+          }
+        } catch (error) {
+          console.error('Error deleting reptiles', error);
+        }
+      };
 
     const handleCheckAll = (e) => {
         setCheckAll(!checkAll);
@@ -73,17 +101,17 @@ export const ReptilesList = () => {
                 </div>
                 <div
                 style={{maxWidth: '300px', float: 'right', display: 'flex', marginBottom: '2vh', marginTop: '2vh', flexDirection: 'row'}}>
-                    <SelectField 
-                    label="Actions"
-                    labelHidden
-                    placeholder="Actions"
-                    value={action}
-                    style={{float: 'right', marginRight: '1vh'}}
-                    onChange={(e) => setAction(e.target.value)}>
-                        <option value="MultiDelete">Delete selected reptile(s)</option>
-                        <option value="DownloadSelected" disabled>Download selected reptiles (.csv)</option>
-                        <option value="DownloadAll" disabled>Download all reptiles (.csv)</option>
-                    </SelectField>
+                    <Menu
+                        trigger={
+                            <MenuButton variation="link" size="small">
+                                Actions
+                            </MenuButton> }
+                    >
+                        <MenuItem onClick={handleDelete}>Delete selected reptile(s)</MenuItem>
+                        <MenuItem disabled>Download selected reptiles (.csv)</MenuItem>
+                        <MenuItem disabled>Download all reptiles (.csv)</MenuItem>
+                    </Menu> 
+
                     <Button 
                     variation="primary"
                     style={{float: 'right', minWidth: '50%', marginLeft: '1vh'}}>

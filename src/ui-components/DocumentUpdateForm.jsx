@@ -14,9 +14,10 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Document } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { getDocument } from "../graphql/queries";
+import { updateDocument } from "../graphql/mutations";
 export default function DocumentUpdateForm(props) {
   const {
     id: idProp,
@@ -66,7 +67,12 @@ export default function DocumentUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Document, idProp)
+        ? (
+            await API.graphql({
+              query: getDocument,
+              variables: { id: idProp },
+            })
+          )?.data?.getDocument
         : documentModelProp;
       setDocumentRecord(record);
     };
@@ -107,12 +113,12 @@ export default function DocumentUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          docType,
-          breederName,
-          breederEmail,
-          ownerName,
-          ownerEmail,
-          purchaseOrHatchDate,
+          docType: docType ?? null,
+          breederName: breederName ?? null,
+          breederEmail: breederEmail ?? null,
+          ownerName: ownerName ?? null,
+          ownerEmail: ownerEmail ?? null,
+          purchaseOrHatchDate: purchaseOrHatchDate ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -142,17 +148,22 @@ export default function DocumentUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await DataStore.save(
-            Document.copyOf(documentRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await API.graphql({
+            query: updateDocument,
+            variables: {
+              input: {
+                id: documentRecord.id,
+                ...modelFields,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

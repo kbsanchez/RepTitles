@@ -15,9 +15,9 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Clutch } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { createClutch } from "../graphql/mutations";
 export default function ClutchCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -140,7 +140,14 @@ export default function ClutchCreateForm(props) {
             breederName: modelFields.breederName,
             breederEmail: modelFields.breederEmail,
           };
-          await DataStore.save(new Clutch(modelFieldsToSave));
+          await API.graphql({
+            query: createClutch,
+            variables: {
+              input: {
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -149,7 +156,8 @@ export default function ClutchCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

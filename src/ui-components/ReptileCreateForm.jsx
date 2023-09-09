@@ -19,9 +19,9 @@ import {
 } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
 import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Reptile } from "../models";
 import { fetchByPath, processFile, validateField } from "./utils";
-import { DataStore } from "aws-amplify";
+import { API } from "aws-amplify";
+import { createReptile } from "../graphql/mutations";
 export default function ReptileCreateForm(props) {
   const {
     clearOnSuccess = true,
@@ -169,7 +169,14 @@ export default function ReptileCreateForm(props) {
             breederEmail: modelFields.breederEmail,
             notes: modelFields.notes,
           };
-          await DataStore.save(new Reptile(modelFieldsToSave));
+          await API.graphql({
+            query: createReptile,
+            variables: {
+              input: {
+                ...modelFieldsToSave,
+              },
+            },
+          });
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -178,7 +185,8 @@ export default function ReptileCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            onError(modelFields, err.message);
+            const messages = err.errors.map((e) => e.message).join("\n");
+            onError(modelFields, messages);
           }
         }
       }}

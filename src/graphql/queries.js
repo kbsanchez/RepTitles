@@ -8,9 +8,6 @@ export const getTransaction = /* GraphQL */ `
       documentID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
@@ -28,44 +25,10 @@ export const listTransactions = /* GraphQL */ `
         documentID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncTransactions = /* GraphQL */ `
-  query SyncTransactions(
-    $filter: ModelTransactionFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTransactions(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        documentID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
       __typename
     }
   }
@@ -90,14 +53,10 @@ export const transactionsByDocumentID = /* GraphQL */ `
         documentID
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
       __typename
     }
   }
@@ -122,14 +81,10 @@ export const getClutch = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           species
@@ -145,14 +100,10 @@ export const getClutch = /* GraphQL */ `
           notes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
         nextToken
-        startedAt
         __typename
       }
       hatchDate
@@ -179,9 +130,6 @@ export const getClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
@@ -193,20 +141,15 @@ export const getClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
-              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         species
@@ -222,9 +165,6 @@ export const getClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
@@ -250,9 +190,6 @@ export const getClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
@@ -264,20 +201,15 @@ export const getClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
-              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         species
@@ -293,9 +225,6 @@ export const getClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
@@ -304,9 +233,6 @@ export const getClutch = /* GraphQL */ `
       breederEmail
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       clutchSireId
       clutchDamId
       owner
@@ -329,7 +255,6 @@ export const listClutches = /* GraphQL */ `
             typeOfReptile
             documents {
               nextToken
-              startedAt
               __typename
             }
             species
@@ -345,14 +270,10 @@ export const listClutches = /* GraphQL */ `
             notes
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         hatchDate
@@ -372,14 +293,10 @@ export const listClutches = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           species
@@ -395,9 +312,6 @@ export const listClutches = /* GraphQL */ `
           notes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
@@ -416,14 +330,10 @@ export const listClutches = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           species
@@ -439,9 +349,6 @@ export const listClutches = /* GraphQL */ `
           notes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
@@ -450,172 +357,12 @@ export const listClutches = /* GraphQL */ `
         breederEmail
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         clutchSireId
         clutchDamId
         owner
         __typename
       }
       nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncClutches = /* GraphQL */ `
-  query SyncClutches(
-    $filter: ModelClutchFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncClutches(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        Reptiles {
-          items {
-            id
-            typeOfReptile
-            documents {
-              nextToken
-              startedAt
-              __typename
-            }
-            species
-            alias
-            sex
-            hatchDate
-            breederName
-            breederEmail
-            clutchID
-            image
-            isParent
-            sold
-            notes
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        hatchDate
-        species
-        Sire {
-          id
-          typeOfReptile
-          documents {
-            items {
-              id
-              reptileID
-              docType
-              breederName
-              breederEmail
-              ownerName
-              ownerEmail
-              purchaseOrHatchDate
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          species
-          alias
-          sex
-          hatchDate
-          breederName
-          breederEmail
-          clutchID
-          image
-          isParent
-          sold
-          notes
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        Dam {
-          id
-          typeOfReptile
-          documents {
-            items {
-              id
-              reptileID
-              docType
-              breederName
-              breederEmail
-              ownerName
-              ownerEmail
-              purchaseOrHatchDate
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          species
-          alias
-          sex
-          hatchDate
-          breederName
-          breederEmail
-          clutchID
-          image
-          isParent
-          sold
-          notes
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        breederName
-        typeOfReptile
-        breederEmail
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        clutchSireId
-        clutchDamId
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
       __typename
     }
   }
@@ -633,7 +380,6 @@ export const getReptile = /* GraphQL */ `
             typeOfReptile
             documents {
               nextToken
-              startedAt
               __typename
             }
             species
@@ -649,9 +395,6 @@ export const getReptile = /* GraphQL */ `
             notes
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
@@ -667,27 +410,19 @@ export const getReptile = /* GraphQL */ `
               documentID
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           purchaseOrHatchDate
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
         nextToken
-        startedAt
         __typename
       }
       species
@@ -703,9 +438,6 @@ export const getReptile = /* GraphQL */ `
       notes
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
@@ -740,9 +472,6 @@ export const listReptiles = /* GraphQL */ `
               notes
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
@@ -754,20 +483,15 @@ export const listReptiles = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
-              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         species
@@ -783,104 +507,10 @@ export const listReptiles = /* GraphQL */ `
         notes
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncReptiles = /* GraphQL */ `
-  query SyncReptiles(
-    $filter: ModelReptileFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncReptiles(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        typeOfReptile
-        documents {
-          items {
-            id
-            reptile {
-              id
-              typeOfReptile
-              species
-              alias
-              sex
-              hatchDate
-              breederName
-              breederEmail
-              clutchID
-              image
-              isParent
-              sold
-              notes
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            reptileID
-            docType
-            breederName
-            breederEmail
-            ownerName
-            ownerEmail
-            Transactions {
-              nextToken
-              startedAt
-              __typename
-            }
-            purchaseOrHatchDate
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        species
-        alias
-        sex
-        hatchDate
-        breederName
-        breederEmail
-        clutchID
-        image
-        isParent
-        sold
-        notes
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
       __typename
     }
   }
@@ -922,9 +552,6 @@ export const reptilesByClutchID = /* GraphQL */ `
               notes
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
@@ -936,20 +563,15 @@ export const reptilesByClutchID = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
-              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         species
@@ -965,14 +587,10 @@ export const reptilesByClutchID = /* GraphQL */ `
         notes
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
       __typename
     }
   }
@@ -1003,9 +621,6 @@ export const getDocument = /* GraphQL */ `
               notes
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
@@ -1017,20 +632,15 @@ export const getDocument = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
-              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         species
@@ -1046,9 +656,6 @@ export const getDocument = /* GraphQL */ `
         notes
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
@@ -1064,22 +671,15 @@ export const getDocument = /* GraphQL */ `
           documentID
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
         nextToken
-        startedAt
         __typename
       }
       purchaseOrHatchDate
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
       __typename
     }
@@ -1109,14 +709,10 @@ export const listDocuments = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           species
@@ -1132,9 +728,6 @@ export const listDocuments = /* GraphQL */ `
           notes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
@@ -1150,123 +743,19 @@ export const listDocuments = /* GraphQL */ `
             documentID
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         purchaseOrHatchDate
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
-      __typename
-    }
-  }
-`;
-export const syncDocuments = /* GraphQL */ `
-  query SyncDocuments(
-    $filter: ModelDocumentFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncDocuments(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        reptile {
-          id
-          typeOfReptile
-          documents {
-            items {
-              id
-              reptileID
-              docType
-              breederName
-              breederEmail
-              ownerName
-              ownerEmail
-              purchaseOrHatchDate
-              createdAt
-              updatedAt
-              _version
-              _deleted
-              _lastChangedAt
-              owner
-              __typename
-            }
-            nextToken
-            startedAt
-            __typename
-          }
-          species
-          alias
-          sex
-          hatchDate
-          breederName
-          breederEmail
-          clutchID
-          image
-          isParent
-          sold
-          notes
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-          __typename
-        }
-        reptileID
-        docType
-        breederName
-        breederEmail
-        ownerName
-        ownerEmail
-        Transactions {
-          items {
-            id
-            documentID
-            createdAt
-            updatedAt
-            _version
-            _deleted
-            _lastChangedAt
-            owner
-            __typename
-          }
-          nextToken
-          startedAt
-          __typename
-        }
-        purchaseOrHatchDate
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-        __typename
-      }
-      nextToken
-      startedAt
       __typename
     }
   }
@@ -1303,14 +792,10 @@ export const documentsByReptileID = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
-              _version
-              _deleted
-              _lastChangedAt
               owner
               __typename
             }
             nextToken
-            startedAt
             __typename
           }
           species
@@ -1326,9 +811,6 @@ export const documentsByReptileID = /* GraphQL */ `
           notes
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
           __typename
         }
@@ -1344,27 +826,19 @@ export const documentsByReptileID = /* GraphQL */ `
             documentID
             createdAt
             updatedAt
-            _version
-            _deleted
-            _lastChangedAt
             owner
             __typename
           }
           nextToken
-          startedAt
           __typename
         }
         purchaseOrHatchDate
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
         __typename
       }
       nextToken
-      startedAt
       __typename
     }
   }
