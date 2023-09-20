@@ -8,6 +8,7 @@ import * as React from "react";
 import { GridProps, RadioGroupFieldProps, SelectFieldProps, TextAreaFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { StorageManagerProps } from "@aws-amplify/ui-react-storage";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { Reptile } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -58,7 +59,7 @@ export declare type ReptileUpdateFormProps = React.PropsWithChildren<{
     overrides?: ReptileUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    reptile?: any;
+    reptile?: Reptile;
     onSubmit?: (fields: ReptileUpdateFormInputValues) => ReptileUpdateFormInputValues;
     onSuccess?: (fields: ReptileUpdateFormInputValues) => void;
     onError?: (fields: ReptileUpdateFormInputValues, errorMessage: string) => void;

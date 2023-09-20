@@ -14,10 +14,9 @@ import {
   TextField,
 } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Document } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { API } from "aws-amplify";
-import { getDocument } from "../graphql/queries";
-import { updateDocument } from "../graphql/mutations";
+import { DataStore } from "aws-amplify";
 export default function DocumentUpdateForm(props) {
   const {
     id: idProp,
@@ -67,12 +66,7 @@ export default function DocumentUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? (
-            await API.graphql({
-              query: getDocument,
-              variables: { id: idProp },
-            })
-          )?.data?.getDocument
+        ? await DataStore.query(Document, idProp)
         : documentModelProp;
       setDocumentRecord(record);
     };
@@ -113,12 +107,12 @@ export default function DocumentUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          docType: docType ?? null,
-          breederName: breederName ?? null,
-          breederEmail: breederEmail ?? null,
-          ownerName: ownerName ?? null,
-          ownerEmail: ownerEmail ?? null,
-          purchaseOrHatchDate: purchaseOrHatchDate ?? null,
+          docType,
+          breederName,
+          breederEmail,
+          ownerName,
+          ownerEmail,
+          purchaseOrHatchDate,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -148,22 +142,17 @@ export default function DocumentUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await API.graphql({
-            query: updateDocument,
-            variables: {
-              input: {
-                id: documentRecord.id,
-                ...modelFields,
-              },
-            },
-          });
+          await DataStore.save(
+            Document.copyOf(documentRecord, (updated) => {
+              Object.assign(updated, modelFields);
+            })
+          );
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
+            onError(modelFields, err.message);
           }
         }
       }}

@@ -8,10 +8,9 @@
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Clutch } from "../models";
 import { fetchByPath, validateField } from "./utils";
-import { API } from "aws-amplify";
-import { getClutch } from "../graphql/queries";
-import { updateClutch } from "../graphql/mutations";
+import { DataStore } from "aws-amplify";
 export default function ClutchUpdateForm(props) {
   const {
     id: idProp,
@@ -58,12 +57,7 @@ export default function ClutchUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? (
-            await API.graphql({
-              query: getClutch,
-              variables: { id: idProp },
-            })
-          )?.data?.getClutch
+        ? await DataStore.query(Clutch, idProp)
         : clutchModelProp;
       setClutchRecord(record);
     };
@@ -103,11 +97,11 @@ export default function ClutchUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          typeOfReptile: typeOfReptile ?? null,
-          species: species ?? null,
-          hatchDate: hatchDate ?? null,
-          breederName: breederName ?? null,
-          breederEmail: breederEmail ?? null,
+          typeOfReptile,
+          species,
+          hatchDate,
+          breederName,
+          breederEmail,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -137,22 +131,17 @@ export default function ClutchUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await API.graphql({
-            query: updateClutch,
-            variables: {
-              input: {
-                id: clutchRecord.id,
-                ...modelFields,
-              },
-            },
-          });
+          await DataStore.save(
+            Clutch.copyOf(clutchRecord, (updated) => {
+              Object.assign(updated, modelFields);
+            })
+          );
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
+            onError(modelFields, err.message);
           }
         }
       }}

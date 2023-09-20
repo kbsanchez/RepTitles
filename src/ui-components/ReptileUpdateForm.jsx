@@ -18,10 +18,9 @@ import {
 } from "@aws-amplify/ui-react";
 import { StorageManager } from "@aws-amplify/ui-react-storage";
 import { Field, getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Reptile } from "../models";
 import { fetchByPath, processFile, validateField } from "./utils";
-import { API } from "aws-amplify";
-import { getReptile } from "../graphql/queries";
-import { updateReptile } from "../graphql/mutations";
+import { DataStore } from "aws-amplify";
 export default function ReptileUpdateForm(props) {
   const {
     id: idProp,
@@ -83,12 +82,7 @@ export default function ReptileUpdateForm(props) {
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? (
-            await API.graphql({
-              query: getReptile,
-              variables: { id: idProp },
-            })
-          )?.data?.getReptile
+        ? await DataStore.query(Reptile, idProp)
         : reptileModelProp;
       setReptileRecord(record);
     };
@@ -133,16 +127,16 @@ export default function ReptileUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          typeOfReptile: typeOfReptile ?? null,
-          species: species ?? null,
+          typeOfReptile,
+          species,
           alias,
-          sex: sex ?? null,
-          hatchDate: hatchDate ?? null,
-          image: image ?? null,
-          isParent: isParent ?? null,
-          breederName: breederName ?? null,
-          breederEmail: breederEmail ?? null,
-          notes: notes ?? null,
+          sex,
+          hatchDate,
+          image,
+          isParent,
+          breederName,
+          breederEmail,
+          notes,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -172,22 +166,17 @@ export default function ReptileUpdateForm(props) {
               modelFields[key] = null;
             }
           });
-          await API.graphql({
-            query: updateReptile,
-            variables: {
-              input: {
-                id: reptileRecord.id,
-                ...modelFields,
-              },
-            },
-          });
+          await DataStore.save(
+            Reptile.copyOf(reptileRecord, (updated) => {
+              Object.assign(updated, modelFields);
+            })
+          );
           if (onSuccess) {
             onSuccess(modelFields);
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
-            onError(modelFields, messages);
+            onError(modelFields, err.message);
           }
         }
       }}

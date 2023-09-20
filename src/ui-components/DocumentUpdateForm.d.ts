@@ -7,6 +7,7 @@
 import * as React from "react";
 import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { Document } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -42,7 +43,7 @@ export declare type DocumentUpdateFormProps = React.PropsWithChildren<{
     overrides?: DocumentUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    document?: any;
+    document?: Document;
     onSubmit?: (fields: DocumentUpdateFormInputValues) => DocumentUpdateFormInputValues;
     onSuccess?: (fields: DocumentUpdateFormInputValues) => void;
     onError?: (fields: DocumentUpdateFormInputValues, errorMessage: string) => void;

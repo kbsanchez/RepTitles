@@ -1,4 +1,4 @@
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, Button } from '@aws-amplify/ui-react';
 
 import { Reptiles } from './components/Reptiles/Reptiles';
 import { RequireAuth } from './RequireAuth';
@@ -40,6 +40,8 @@ function MyRoutes() {
           <Route path="/about" element={<About />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+          <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -55,3 +57,14 @@ function App() {
 }
 
 export default App;
+
+function NoMatch() {
+  return (
+    <div>
+      <h2>Nothing to see here!</h2>
+      <p>
+        <Button variation='primary' to="/">Go to the home page</Button>
+      </p>
+    </div>
+  );
+}

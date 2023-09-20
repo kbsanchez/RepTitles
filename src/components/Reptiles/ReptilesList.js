@@ -14,12 +14,34 @@ import {
     MenuItem,
     Button,
     SearchField } from '@aws-amplify/ui-react'
+import CustomModal from '../Misc/CustomModal'
+import { AddReptile } from './AddReptile'
+import ViewReptile from './ViewReptile'
 
 export const ReptilesList = () => {
 
     const [reptiles, setReptiles] = useState([]);
     const [checkedReptiles, setCheckedReptiles] = useState([]);
-    const [checkAll, setCheckAll] = useState(false)
+    const [checkAll, setCheckAll] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedReptile, setSelectedReptile] = useState(null);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+    
+    const closeModal = () => {
+    setModalOpen(false);
+    };
+
+    const handleTableRowClick = (reptile, e) => {
+        if (e.target.tagName.toLowerCase() !== 'input' 
+        && e.target.tagName.toLowerCase() !== 'span'
+        && e.target.tagName.toLowerCase() !== 'svg') {
+            // Set the selected reptile when a table row is clicked
+            setSelectedReptile(reptile);
+        }
+    };
 
     useEffect(() => {
         fetchReptiles();
@@ -84,8 +106,112 @@ export const ReptilesList = () => {
         setCheckedReptiles(updatedCheckedReptiles);
     };
 
+    const generateSelectedCSVContent = () => {
+        const selectedReptiles = reptiles.filter((reptile) => checkedReptiles.includes(reptile.id));
+        
+        // Create an array to hold the CSV rows
+        const csvRows = [];
+
+        // Create the header row
+        const header = ['Type', 'Species', 'Alias', 'Sex', 'Hatch Date', 'Parent', 'Breeder Name', 'Breeder Email', 'Notes', 'Sold'];
+        csvRows.push(header);
+
+        // Add data rows
+        selectedReptiles.forEach((reptile) => {
+            const row = [
+            reptile.typeOfReptile || '',
+            reptile.species || '',
+            reptile.alias || '',
+            reptile.sex || '',
+            reptile.hatchDate || '',
+            reptile.isParent || '',
+            reptile.breederName || '',
+            reptile.breederEmail || '',
+            reptile.notes || '',
+            reptile.sold || '',
+            ];
+            csvRows.push(row);
+        });
+
+        // Convert rows to CSV format
+        const csvContent = csvRows.map(row => row.join(',')).join('\n');
+
+        return csvContent;
+    };
+
+    // Function to trigger the CSV download
+    const downloadSelectedCSV = () => {
+        const csvContent = generateSelectedCSVContent();
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a temporary <a> element to trigger the download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'selected_reptiles.csv';
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+
+    const generateAllCSVContent = () => {
+        const selectedReptiles = reptiles;
+        
+        // Create an array to hold the CSV rows
+        const csvRows = [];
+
+        // Create the header row
+        const header = ['Type', 'Species', 'Alias', 'Sex', 'Hatch Date', 'Parent', 'Breeder Name', 'Breeder Email', 'Notes', 'Sold'];
+        csvRows.push(header);
+
+        // Add data rows
+        selectedReptiles.forEach((reptile) => {
+            const row = [
+            reptile.typeOfReptile || '',
+            reptile.species || '',
+            reptile.alias || '',
+            reptile.sex || '',
+            reptile.hatchDate || '',
+            reptile.isParent || '',
+            reptile.breederName || '',
+            reptile.breederEmail || '',
+            reptile.notes || '',
+            reptile.sold || '',
+            ];
+            csvRows.push(row);
+        });
+
+        // Convert rows to CSV format
+        const csvContent = csvRows.map(row => row.join(',')).join('\n');
+
+        return csvContent;
+    };
+
+     // Function to trigger the CSV download
+    const downloadAllCSV = () => {
+        const csvContent = generateAllCSVContent();
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+
+        // Create a temporary <a> element to trigger the download
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'all_reptiles.csv';
+        document.body.appendChild(a);
+        a.click();
+
+        // Cleanup
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+
     return (
         <div style={{width: '95%', flexDirection: 'column', margin: 'auto'}}>
+            {!selectedReptile && (
+            <div>
             <div className='reptile-list-toolbar' style={{flexDirection: 'row'}}>
                 <div
                 style={{maxWidth: '300px', width: '20%', float: 'left', display: 'flex', marginBottom: '2vh', marginTop: '3vh', flexDirection: 'row', marginRight: '2vh'}}>
@@ -107,13 +233,22 @@ export const ReptilesList = () => {
                                 Actions
                             </MenuButton> }
                     >
-                        <MenuItem onClick={handleDelete}>Delete selected reptile(s)</MenuItem>
-                        <MenuItem disabled>Download selected reptiles (.csv)</MenuItem>
-                        <MenuItem disabled>Download all reptiles (.csv)</MenuItem>
+                        <MenuItem 
+                        onClick={handleDelete}
+                        isDisabled={checkedReptiles.length === 0 ? true : false}>
+                            {`Delete ${checkedReptiles.length} reptile(s)`}
+                        </MenuItem>
+                        <MenuItem 
+                        onClick={downloadSelectedCSV}
+                        isDisabled={checkedReptiles.length === 0 ? true : false}>
+                            {`Download ${checkedReptiles.length} reptile(s) (.csv)`}
+                        </MenuItem>
+                        <MenuItem onClick={downloadAllCSV}>Download all reptiles (.csv)</MenuItem>
                     </Menu> 
 
                     <Button 
                     variation="primary"
+                    onClick={openModal}
                     style={{float: 'right', minWidth: '50%', marginLeft: '1vh'}}>
                         Add Reptile
                     </Button>
@@ -150,7 +285,12 @@ export const ReptilesList = () => {
                 </TableHead>
                 <TableBody>
                     {reptiles.map((reptile, index) => {
-                        try {return(<TableRow key={index}>
+                        try {return(
+                        <TableRow 
+                            key={index}
+                            onClick={(e) => handleTableRowClick(reptile, e)} // Handle row click
+                            style={{ cursor: 'pointer' }} // Add a pointer cursor
+                        >
                             <TableCell>
                                 <CheckboxField
                                 checked={checkedReptiles.includes(reptile.id)}
@@ -160,7 +300,14 @@ export const ReptilesList = () => {
                             <TableCell>{reptile.typeOfReptile || ""}</TableCell>
                             <TableCell>{reptile.species || ""}</TableCell>
                             <TableCell>{reptile.alias || ""}</TableCell>
-                            <TableCell>{(reptile.sex === "MALE" ? "M" : (reptile.sex === "FEMALE" ? "F": reptile.sex === "UNKNOWN" ? "?" : "" ))}</TableCell>
+                            <TableCell>
+                                {(reptile.sex === "MALE" 
+                                ? "M" 
+                                : (reptile.sex === "FEMALE" 
+                                ? "F"
+                                : reptile.sex === "UNKNOWN" 
+                                ? "?" : "" ))}
+                            </TableCell>
                             <TableCell>{reptile.hatchDate || ""}</TableCell>
                         </TableRow>)
                         } catch (error) {
@@ -169,6 +316,21 @@ export const ReptilesList = () => {
                     })}
                 </TableBody>
             </Table>
+            </div>
+            )}
+
+            {/* Conditionally render the ViewReptile component when a reptile is selected */}
+            {selectedReptile && (
+                <ViewReptile reptile={selectedReptile} onClose={() => setSelectedReptile(null)} />
+            )}
+
+             {/* Render the custom modal when it's open */}
+            {modalOpen && (
+                <CustomModal isOpen={modalOpen} onClose={closeModal}>
+                {/* Render the AddReptile component inside the modal */}
+                <AddReptile />
+                </CustomModal>
+            )}
         </div>
     )
 }

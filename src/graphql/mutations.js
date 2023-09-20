@@ -11,6 +11,9 @@ export const createTransaction = /* GraphQL */ `
       documentID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -26,6 +29,9 @@ export const updateTransaction = /* GraphQL */ `
       documentID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -41,6 +47,9 @@ export const deleteTransaction = /* GraphQL */ `
       documentID
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -69,10 +78,14 @@ export const createClutch = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           species
@@ -88,10 +101,14 @@ export const createClutch = /* GraphQL */ `
           notes
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       hatchDate
@@ -118,6 +135,9 @@ export const createClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -129,15 +149,20 @@ export const createClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -153,6 +178,9 @@ export const createClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -178,6 +206,9 @@ export const createClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -189,15 +220,20 @@ export const createClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -213,6 +249,9 @@ export const createClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -221,6 +260,9 @@ export const createClutch = /* GraphQL */ `
       breederEmail
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       clutchSireId
       clutchDamId
       owner
@@ -251,10 +293,14 @@ export const updateClutch = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           species
@@ -270,10 +316,14 @@ export const updateClutch = /* GraphQL */ `
           notes
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       hatchDate
@@ -300,6 +350,9 @@ export const updateClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -311,15 +364,20 @@ export const updateClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -335,6 +393,9 @@ export const updateClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -360,6 +421,9 @@ export const updateClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -371,15 +435,20 @@ export const updateClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -395,6 +464,9 @@ export const updateClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -403,6 +475,9 @@ export const updateClutch = /* GraphQL */ `
       breederEmail
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       clutchSireId
       clutchDamId
       owner
@@ -433,10 +508,14 @@ export const deleteClutch = /* GraphQL */ `
               purchaseOrHatchDate
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           species
@@ -452,10 +531,14 @@ export const deleteClutch = /* GraphQL */ `
           notes
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       hatchDate
@@ -482,6 +565,9 @@ export const deleteClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -493,15 +579,20 @@ export const deleteClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -517,6 +608,9 @@ export const deleteClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -542,6 +636,9 @@ export const deleteClutch = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -553,15 +650,20 @@ export const deleteClutch = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -577,6 +679,9 @@ export const deleteClutch = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -585,6 +690,9 @@ export const deleteClutch = /* GraphQL */ `
       breederEmail
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       clutchSireId
       clutchDamId
       owner
@@ -608,6 +716,7 @@ export const createReptile = /* GraphQL */ `
             typeOfReptile
             documents {
               nextToken
+              startedAt
               __typename
             }
             species
@@ -623,6 +732,9 @@ export const createReptile = /* GraphQL */ `
             notes
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
@@ -638,19 +750,27 @@ export const createReptile = /* GraphQL */ `
               documentID
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           purchaseOrHatchDate
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       species
@@ -666,6 +786,9 @@ export const createReptile = /* GraphQL */ `
       notes
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -687,6 +810,7 @@ export const updateReptile = /* GraphQL */ `
             typeOfReptile
             documents {
               nextToken
+              startedAt
               __typename
             }
             species
@@ -702,6 +826,9 @@ export const updateReptile = /* GraphQL */ `
             notes
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
@@ -717,19 +844,27 @@ export const updateReptile = /* GraphQL */ `
               documentID
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           purchaseOrHatchDate
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       species
@@ -745,6 +880,9 @@ export const updateReptile = /* GraphQL */ `
       notes
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -766,6 +904,7 @@ export const deleteReptile = /* GraphQL */ `
             typeOfReptile
             documents {
               nextToken
+              startedAt
               __typename
             }
             species
@@ -781,6 +920,9 @@ export const deleteReptile = /* GraphQL */ `
             notes
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
@@ -796,19 +938,27 @@ export const deleteReptile = /* GraphQL */ `
               documentID
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
             nextToken
+            startedAt
             __typename
           }
           purchaseOrHatchDate
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       species
@@ -824,6 +974,9 @@ export const deleteReptile = /* GraphQL */ `
       notes
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -858,6 +1011,9 @@ export const createDocument = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -869,15 +1025,20 @@ export const createDocument = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -893,6 +1054,9 @@ export const createDocument = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -908,15 +1072,22 @@ export const createDocument = /* GraphQL */ `
           documentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       purchaseOrHatchDate
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -951,6 +1122,9 @@ export const updateDocument = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -962,15 +1136,20 @@ export const updateDocument = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -986,6 +1165,9 @@ export const updateDocument = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -1001,15 +1183,22 @@ export const updateDocument = /* GraphQL */ `
           documentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       purchaseOrHatchDate
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }
@@ -1044,6 +1233,9 @@ export const deleteDocument = /* GraphQL */ `
               notes
               createdAt
               updatedAt
+              _version
+              _deleted
+              _lastChangedAt
               owner
               __typename
             }
@@ -1055,15 +1247,20 @@ export const deleteDocument = /* GraphQL */ `
             ownerEmail
             Transactions {
               nextToken
+              startedAt
               __typename
             }
             purchaseOrHatchDate
             createdAt
             updatedAt
+            _version
+            _deleted
+            _lastChangedAt
             owner
             __typename
           }
           nextToken
+          startedAt
           __typename
         }
         species
@@ -1079,6 +1276,9 @@ export const deleteDocument = /* GraphQL */ `
         notes
         createdAt
         updatedAt
+        _version
+        _deleted
+        _lastChangedAt
         owner
         __typename
       }
@@ -1094,15 +1294,22 @@ export const deleteDocument = /* GraphQL */ `
           documentID
           createdAt
           updatedAt
+          _version
+          _deleted
+          _lastChangedAt
           owner
           __typename
         }
         nextToken
+        startedAt
         __typename
       }
       purchaseOrHatchDate
       createdAt
       updatedAt
+      _version
+      _deleted
+      _lastChangedAt
       owner
       __typename
     }

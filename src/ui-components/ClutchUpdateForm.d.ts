@@ -7,6 +7,7 @@
 import * as React from "react";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { Clutch } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -39,7 +40,7 @@ export declare type ClutchUpdateFormProps = React.PropsWithChildren<{
     overrides?: ClutchUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    clutch?: any;
+    clutch?: Clutch;
     onSubmit?: (fields: ClutchUpdateFormInputValues) => ClutchUpdateFormInputValues;
     onSuccess?: (fields: ClutchUpdateFormInputValues) => void;
     onError?: (fields: ClutchUpdateFormInputValues, errorMessage: string) => void;

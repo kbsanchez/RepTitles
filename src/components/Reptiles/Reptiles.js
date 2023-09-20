@@ -3,28 +3,27 @@ import {
   Tabs, 
   TabItem } from '@aws-amplify/ui-react';
 import { ReptilesList } from './ReptilesList';
-import { AddClutch } from './AddClutch';
-import { AddReptile } from './AddReptile';
 
 
 export function Reptiles() {
-    const { route } = useAuthenticator((context) => [context.route]);
 
     return (
       <>
+
       <Tabs
         justifyContent="flex-start"
       >
-        <TabItem title="Your Reptiles">
+        <TabItem title="Reptiles">
           <ReptilesList />
         </TabItem>
-        <TabItem title="Add Clutch">
-          <AddClutch />
+        <TabItem title="Groups" isDisabled={true}>
         </TabItem>
-        <TabItem title="Add Reptile">
-          <AddReptile />
+        <TabItem title="Documents" isDisabled={true}>
+        </TabItem>
+        <TabItem title="Transactions" isDisabled={true}>
         </TabItem>
       </Tabs>
+
       </>
 
     );
